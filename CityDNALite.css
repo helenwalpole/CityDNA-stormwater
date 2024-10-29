@@ -1,0 +1,126 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+p {
+    font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 9pt;
+}
+
+h2 {
+    font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: 600;
+    text-align: left;
+    font-size: 13pt;
+}
+
+label {
+    font-weight: 400;
+    font-size: 9.5pt;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+
+.mapbox-logo{
+    display: none !important;
+}
+
+.mapboxgl-ctrl-logo {
+    display: none !important;
+}
+
+#presentationModeLayersBox {
+    display: block;
+    position: absolute;
+    top: 60px;
+    right: 200px;
+    transform: rotate(2deg);
+    height: 210px;
+    width: 290px;
+    padding: 5px 5px;
+    background-color: #000;
+    border: #cccccc 1px solid;
+    border-radius: 1px;
+    font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    color: #ffffff;
+}
+
+.layerSelector {
+    text-align: left;
+    /* padding-top: 1px; */
+}
+
+#detailsBox {
+    display: block;
+    position: absolute;
+    bottom: 30px;
+    left: 400px;
+    transform: rotate(2deg);
+    height: 70px;
+    width: 235px;
+    padding: 5px 10px;
+    background-color: #000;
+    border: #CCCCCC 1px solid;
+    border-radius: 1px;
+    font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: left;
+    color: #ffffff;
+}
+
+.legendSwatch {
+    height: 8px;
+    width: 10px;
+    /* border-radius: 8px; */
+    padding-right: 12px;
+    margin-right: 5px;
+    /* margin-bottom: 5px; */
+    /* background-color: aqua; */
+}
+
+.legendLabel {
+    padding-bottom: 1px; /* line break between legend items */
+}
+
+#legend {
+    /* line-height: 18px; */
+    font-size: x-small;
+}
+
+.checkmark {
+    background-color: red;
+    margin-left: 10px;
+}
+
+.container {
+    display: block;
+    float: right;
+    clear: both;
+    position: relative;
+    /* padding-left: 35px; */
+    /* margin-bottom: 12px; */
+    /* padding-bottom: 3px; */
+    cursor: pointer;
+    font-size: 13px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+.dot {
+    height: 11px;
+    width: 11px; 
+    margin-right: 8px;
+    margin-top: 2px;
+    border-radius: 50%;
+    display: inline-block;
+    border: 3px, solid;
+}
+

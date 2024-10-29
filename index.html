@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>CityDNA Lite - ASCA - Nov 2024</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <!-- Add montserrat and roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+
+    <!-- Add mapbox gl -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
+
+    <!-- Add local css  -->
+    <link href="CityDNALite.css" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="presentationModeLayersBox" style="display: none;">
+        <div class="layerSelector">
+            <label class="container" >
+                Pre-colonial landscape / #1
+                <input id="loadHistoricWaterbodiesStory" type="checkbox" class="checkmark">
+                <!-- <span class="checkmark"></span> -->
+            </label>
+        </div>
+        <div class="layerSelector">
+            <label class="container">
+                1% Flood model / #2
+                <input id="loadInundationState" type="checkbox" class="checkmark">
+                <!-- <span class="checkmark"></span> -->
+            </label>
+        </div>
+        <div class="layerSelector">
+            <label class="container">
+                Urban forest / #3
+                <input id="loadTreeCanopyState" type="checkbox" class="checkmark">
+                <!-- <span class="checkmark"></span> -->
+            </label>
+        </div>
+        <div class="layerSelector">
+            <label class="container" >
+                Stormwater drain network / #4
+                <input id="loadClueAreas" type="checkbox" class="checkmark">
+                <!-- <span class="checkmark"></span> -->
+            </label>
+        </div>
+        <div class="layerSelector">
+            <label class="container">
+                Stormwater sensor locations / #5
+                <input id="loadStormwaterLocationStory" type="checkbox" class="checkmark">
+                <!-- <span class="checkmark"></span> -->
+            </label>
+        </div>
+        <div class="layerSelector">
+            <label class="container">
+                Stormwater Game / #6
+                <input id="loadStormwaterGame" type="checkbox" class="checkmark">
+                <!-- <span class="checkmark"></span> -->
+            </label>
+        </div><div class="layerSelector">
+            <label class="container">
+                Median rent prices / #7
+                <input id="loadMedianWeeklyRentState" type="checkbox" class="checkmark">
+                <!-- <span class="checkmark"></span> -->
+            </label>
+        </div>
+        <div class="layerSelector">
+            <label class="container" >
+                Median  mortgage prices / #8
+                <input id="loadMedianMortgageState" type="checkbox" class="checkmark">
+                <!-- <span class="checkmark"></span> -->
+            </label>
+        </div>
+        <div class="layerSelector">
+            <label class="container" >
+                Today's tour route / #9
+                <input id="loadEcoDevTourRouteStory" type="checkbox" class="checkmark">
+                <!-- <span class="checkmark"></span> -->
+            </label>
+        </div>
+
+
+    </div>
+    <div id="detailsBox">
+        <div id="legend"></div>
+    </div>
+    <!-- load City DNA javascript after html has loaded in -->
+    <script type="text/javascript" src="cityDnaLiteBase_ASCA_Nov24.js"></script>
+</body>
+
+</html>
