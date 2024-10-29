@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>CityDNA Handheld Controller - ASCA - Nov 2024</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+
+    <!-- Add montserrat and roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+
+    <!-- Add mapbox gl -->
+    <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.css' rel='stylesheet' />
+
+    <!-- Add local css  -->
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: lightgray;
+        }
+
+        p {
+            font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-size: 9pt;
+            color: black;
+        }
+
+        h2 {
+            font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: 600;
+            text-align: center;
+            font-size: 16pt;
+            color: black;
+        }
+        h3 {
+            font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: 600;
+            text-align: left;
+            font-size: 12pt;
+            color: black;
+            padding: 0;
+            margin: 0;
+        }
+        h6 {
+            font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: 300;
+            text-align: left;
+            font-size: 8pt;
+            color: black;
+        }
+
+        /* css goes here */
+        #title {
+            position: relative;            
+            display: block;
+            width: 80%;
+            margin: 0 auto;
+            margin-top: 30px;
+            /* border: solid 2px red; */
+            text-align: center;
+        }
+
+        /* .textBox {} */
+        .graphicsHeightBounds {
+            position: relative;
+            display: block;
+            height: 400px;
+            margin-top: 50px;
+            /* border: solid 2px mediumseagreen; */
+        }
+
+        .graphicsWidthBounds {
+            position: relative;
+            display: block;
+            width: calc(80vw);
+            height: inherit;
+            margin: 0 auto;
+            /* border: solid 2px orange; */
+        }
+
+        .graphicsBox {
+            position: relative;
+            display: block;
+            width: inherit;
+            height: inherit;
+            margin: 0 auto;
+            /* margin-top: 50px; */
+            /* background-color: green; */
+            /* border: solid 1px black; */
+            /* border-radius: 1px; */
+            /* font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; */
+            text-align: center;
+            /* color: #ffffff; */
+        }
+
+        img {
+            position: relative;
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            max-height: 100%;
+            /* vertical-align: top; */
+        }
+
+        .countdownTimerBox {
+            position: relative;
+            display: block;
+            height: 30px;
+            width: 100px;
+            margin: 0 auto;
+            margin-top: 50px;
+            text-align: center;
+        }
+
+
+        .sliderOuterBox {
+            position: relative;
+            width: calc(80vw);
+            /* matches the width of the graphic */
+            height: 30px;
+            margin: 0 auto;
+            margin-top: 30px;
+            /* border: solid 2px magenta; */
+            background-color: #bbb;
+        }
+
+        .sliderInnerBox {
+            position: relative;
+            /* display: block; */
+            height: inherit;
+            width: 0%;
+            float: left;
+            background-color: #3277a8;
+            padding-left: 10px;
+        }
+
+        .buttonBox {
+            position: relative;
+            margin: 0 auto;
+            /* height: 100px;
+            width: 200px; */
+            /* border: solid 2px greenyellow; */
+
+        }
+
+        .button {
+            /* position: inherit; */
+            position: relative;
+            display: block;
+            margin: 0 auto;
+            margin-top: 20px;
+            width: calc(60vh * 0.8 * 0.8);
+        }
+
+        .button a {
+            color: white;
+            font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            font-weight: 600;
+            /* font-size: 36px; */
+            text-align: center;
+            text-decoration: none;
+            background-color: #FFA12B;
+            display: block;
+            position: relative;
+            padding: 20px 40px;
+
+            /* -webkit-tap-highlight-color: rgba(0, 0, 0, 0); */
+            /* text-shadow: 0px 1px 0px #000; */
+            /* filter: dropshadow(color=#000, offx=0px, offy=1px); */
+
+            -webkit-box-shadow: inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+            -moz-box-shadow: inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+            box-shadow: inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
+
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+        .button a:active {
+            top: 10px;
+            background-color: #F78900;
+
+            -webkit-box-shadow: inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+            -moz-box-shadow: inset 0 1px 0 #FFE5C4, inset 0 -3pxpx 0 #915100;
+            box-shadow: inset 0 1px 0 #FFE5C4, inset 0 -3px 0 #915100;
+        }
+
+        .button:after {
+            content: "";
+            height: 100%;
+            width: 100%;
+            padding: 4px;
+            position: absolute;
+            bottom: -15px;
+            left: -4px;
+            z-index: -1;
+            background-color: #2B1800;
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+        }
+
+        .gameOverSuccessBox {
+            position: relative;
+            display: none;
+            margin: 0 auto;
+            margin-top: 20px;
+            width: 50vw;
+            height: 50px;
+            /* background-color: peachpuff; */
+            text-align: center;
+        }
+
+        .gameOverFailureBox {
+            position: relative;
+            display: none;
+            margin: 0 auto;
+            margin-top: 20px;
+            width: 50vw;
+            height: 50px;
+            /* background-color: darkslategrey; */
+            text-align: center;
+        }
+        #jsonMessage {
+            position: relative;
+            display: block;
+            width: 30vw;
+            margin: 0 auto;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div id="title" class="textBox">
+        <h2>Oh no! This stormwater drain has blocked.</h2>
+    </div>
+    <div class="graphicsHeightBounds">
+        <div class="graphicsWidthBounds">
+            <div id="animation" class="graphicsBox">
+                <img id="icon" src="iconPump.png" alt="pumpPic">
+            </div>
+        </div>
+    </div>
+
+    <div id="countdownTimer" class="countdownTimerBox"></div>
+
+    <div id="sliderOuter" class="sliderOuterBox">
+        <div id="sliderInner" class="sliderInnerBox"></div>
+    </div>
+    <div>
+        <div id="gameButton" class="button">
+            <a href="#">Pump that drain!</a>
+        </div>
+        <div id="gameOverSuccess" class="gameOverSuccessBox">
+        </div>
+        <div id="gameOverFailure" class="gameOverFailureBox">
+        </div>
+    </div>
+    <div id="jsonMessage"></div>
+
+    <!-- load City DNA javascript after html has loaded in -->
+    <script>
+        // Use URLquery data to populate the text in the title box
+        // const drainID = window.location.search
+        const drainID = 'SW1';
+        let gameTimeElapsed = 0;
+        let pumpCount = 0;
+        const gameTimeLimit = 7;
+
+        // Display total game time on the countdown timer
+        document.getElementById("countdownTimer").innerHTML=`<h3>${gameTimeLimit} seconds</h3>`;
+        
+        // Enable the button for gameplay
+        document.getElementById("gameButton").addEventListener("click", pumpDrain);
+
+        // Start a game timer to determine success/failure, and start counting down the clock
+        let gameTimer = setInterval(() => {
+            gameTimeElapsed += 1;
+            const countdown = gameTimeLimit - gameTimeElapsed;
+            console.log(gameTimeElapsed);
+            document.getElementById("countdownTimer").innerHTML=`<h3>${countdown} seconds</h3>`;
+            if (gameTimeElapsed == gameTimeLimit) {
+                endGame(drainID, "failure");
+                clearInterval(gameTimer);
+            };
+
+        }, 1000); // updates every 1 second
+
+        function pumpDrain() {
+            console.log("pumpDrain()")
+            pumpCount += 1;
+            // calculate percentage to render
+            const clearanceValue = 0 + (pumpCount * 5); //increments in 5% units, starting at 0
+            const clearanceValueString = clearanceValue + "%";
+            console.log(clearanceValueString);
+            document.getElementsByClassName("sliderInnerBox")[0].style.width = clearanceValueString;
+            document.getElementById("sliderInner").innerHTML = `<h3>${clearanceValueString}<h3>`;
+            // increment the pump counter
+
+            // if we're at 100%, end the game
+            if (clearanceValue == 100) {
+                endGame(drainID, "success");
+            };
+        }
+        function endGame(drainID, status) {
+            if (status == "success") { // this is what happens if you clear the drain in time
+                //hide the button
+                document.getElementById("gameButton").style.display = "none";
+                //display the payoff
+                document.getElementById("title").innerHTML="<h2>Nailed it! Great work.</h2>"
+                document.getElementById("gameOverSuccess").style.display = "block";
+                document.getElementById("gameOverSuccess").innerHTML = "<h2>SUCCESS!</h2>";
+                //update the graphic
+                document.getElementById("icon").src="iconHappyWorker.png";
+                //send the JSON packet to the city DNA table to reset the drain to status 'clear'
+                document.getElementById("jsonMessage").innerHTML=`{${drainID}: success}`;
+
+            } else { // This is what happens if you don't clear the drain in time
+                //hide the button
+                document.getElementById("gameButton").style.display = "none";
+                //display the payoff
+                document.getElementById("title").innerHTML="<h2>Uh oh! This drain has flooded.</h2>"
+                document.getElementById("gameOverFailure").style.display = "block";
+                document.getElementById("gameOverFailure").innerHTML = "<h2>TOO LATE!</h2>";
+                //update the graphic
+                document.getElementById("icon").src="iconFloatingBottle.png";
+                // no JSON packet needs to be sent - the City DNA table is set to assume failure unless it's sent a success trigger
+            };
+            clearInterval(gameTimer);
+        };
+
+    </script>
+</body>
+
+</html>
