@@ -21,7 +21,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: lightgray;
+            background-color: white;
         }
 
         p {
@@ -37,6 +37,7 @@
             font-size: 16pt;
             color: black;
         }
+
         h3 {
             font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-weight: 600;
@@ -46,6 +47,7 @@
             padding: 0;
             margin: 0;
         }
+
         h6 {
             font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-weight: 300;
@@ -56,13 +58,18 @@
 
         /* css goes here */
         #title {
-            position: relative;            
+            position: relative;
             display: block;
             width: 80%;
             margin: 0 auto;
             margin-top: 30px;
             /* border: solid 2px red; */
             text-align: center;
+        }
+
+        .columnBox {
+            max-width: 250px;
+            background-color: lightgray;
         }
 
         /* .textBox {} */
@@ -227,6 +234,7 @@
             /* background-color: darkslategrey; */
             text-align: center;
         }
+
         #jsonMessage {
             position: relative;
             display: block;
@@ -238,32 +246,34 @@
 </head>
 
 <body>
-    <div id="title" class="textBox">
-        <h2>Oh no! This stormwater drain has blocked.</h2>
-    </div>
-    <div class="graphicsHeightBounds">
-        <div class="graphicsWidthBounds">
-            <div id="animation" class="graphicsBox">
-                <img id="icon" src="iconPump.png" alt="pumpPic">
+    <div id="column" class="columnBox">
+        <div id="title" class="textBox">
+            <h2>Oh no! This stormwater drain has blocked.</h2>
+        </div>
+        <div class="graphicsHeightBounds">
+            <div class="graphicsWidthBounds">
+                <div id="animation" class="graphicsBox">
+                    <img id="icon" src="iconPump.png" alt="pumpPic">
+                </div>
             </div>
         </div>
-    </div>
 
-    <div id="countdownTimer" class="countdownTimerBox"></div>
+        <div id="countdownTimer" class="countdownTimerBox"></div>
 
-    <div id="sliderOuter" class="sliderOuterBox">
-        <div id="sliderInner" class="sliderInnerBox"></div>
+        <div id="sliderOuter" class="sliderOuterBox">
+            <div id="sliderInner" class="sliderInnerBox"></div>
+        </div>
+        <div>
+            <div id="gameButton" class="button">
+                <a href="#">Pump that drain!</a>
+            </div>
+            <div id="gameOverSuccess" class="gameOverSuccessBox">
+            </div>
+            <div id="gameOverFailure" class="gameOverFailureBox">
+            </div>
+        </div>
+        <div id="jsonMessage"></div>
     </div>
-    <div>
-        <div id="gameButton" class="button">
-            <a href="#">Pump that drain!</a>
-        </div>
-        <div id="gameOverSuccess" class="gameOverSuccessBox">
-        </div>
-        <div id="gameOverFailure" class="gameOverFailureBox">
-        </div>
-    </div>
-    <div id="jsonMessage"></div>
 
     <!-- load City DNA javascript after html has loaded in -->
     <script>
@@ -275,8 +285,8 @@
         const gameTimeLimit = 7;
 
         // Display total game time on the countdown timer
-        document.getElementById("countdownTimer").innerHTML=`<h3>${gameTimeLimit} seconds</h3>`;
-        
+        document.getElementById("countdownTimer").innerHTML = `<h3>${gameTimeLimit} seconds</h3>`;
+
         // Enable the button for gameplay
         document.getElementById("gameButton").addEventListener("click", pumpDrain);
 
@@ -285,7 +295,7 @@
             gameTimeElapsed += 1;
             const countdown = gameTimeLimit - gameTimeElapsed;
             console.log(gameTimeElapsed);
-            document.getElementById("countdownTimer").innerHTML=`<h3>${countdown} seconds</h3>`;
+            document.getElementById("countdownTimer").innerHTML = `<h3>${countdown} seconds</h3>`;
             if (gameTimeElapsed == gameTimeLimit) {
                 endGame(drainID, "failure");
                 clearInterval(gameTimer);
@@ -314,23 +324,23 @@
                 //hide the button
                 document.getElementById("gameButton").style.display = "none";
                 //display the payoff
-                document.getElementById("title").innerHTML="<h2>Nailed it! Great work.</h2>"
+                document.getElementById("title").innerHTML = "<h2>Nailed it! Great work.</h2>"
                 document.getElementById("gameOverSuccess").style.display = "block";
                 document.getElementById("gameOverSuccess").innerHTML = "<h2>SUCCESS!</h2>";
                 //update the graphic
-                document.getElementById("icon").src="iconHappyWorker.png";
+                document.getElementById("icon").src = "iconHappyWorker.png";
                 //send the JSON packet to the city DNA table to reset the drain to status 'clear'
-                document.getElementById("jsonMessage").innerHTML=`{${drainID}: success}`;
+                document.getElementById("jsonMessage").innerHTML = `{${drainID}: success}`;
 
             } else { // This is what happens if you don't clear the drain in time
                 //hide the button
                 document.getElementById("gameButton").style.display = "none";
                 //display the payoff
-                document.getElementById("title").innerHTML="<h2>Uh oh! This drain has flooded.</h2>"
+                document.getElementById("title").innerHTML = "<h2>Uh oh! This drain has flooded.</h2>"
                 document.getElementById("gameOverFailure").style.display = "block";
                 document.getElementById("gameOverFailure").innerHTML = "<h2>TOO LATE!</h2>";
                 //update the graphic
-                document.getElementById("icon").src="iconFloatingBottle.png";
+                document.getElementById("icon").src = "iconFloatingBottle.png";
                 // no JSON packet needs to be sent - the City DNA table is set to assume failure unless it's sent a success trigger
             };
             clearInterval(gameTimer);
