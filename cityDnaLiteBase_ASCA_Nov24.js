@@ -682,32 +682,31 @@ map.on("load", function () {
         map.loadImage("https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg", (error, image) => {
             if (error) throw error;
             map.addImage("QRcode", image);
+            for (const index in layersSubListQRSymbols) {
+                map.addLayer({
+                    id: layersSubListQRSymbols[index],
+                    source: "stormwater sensors",
+                    "source-layer": "CDX_CityDNA_stormwaterSensors",
+                    type: "symbol",
+                    layout: {
+                        "icon-image": "QRcode",
+                        "icon-size": 12,
+                        "icon-anchor": 'center',
+                        // This layer is not visible initially.
+                        // It will be updated to 'visible' by blockedDrain()
+                        // 'visibility': 'none',
+                        'visibility': 'visible',
+                    },
+                    filter: [
+                        "match",
+                        ["get", "name"],
+                        layersSubListCircles[index], // use SubListCircles list as it matches the feature names in the source layer
+                        true,
+                        false,
+                    ],
+                });
+            }
         });
-
-        for (const index in layersSubListQRSymbols) {
-            map.addLayer({
-                id: layersSubListQRSymbols[index],
-                source: "stormwater sensors",
-                "source-layer": "CDX_CityDNA_stormwaterSensors",
-                type: "symbol",
-                layout: {
-                    "icon-image": "QRcode",
-                    "icon-size": 12,
-                    "icon-anchor": 'center',
-                    // This layer is not visible initially.
-                    // It will be updated to 'visible' by blockedDrain()
-                    // 'visibility': 'none',
-                    'visibility': 'visible',
-                },
-                filter: [
-                    "match",
-                    ["get", "name"],
-                    layersSubListCircles[index], // use SubListCircles list as it matches the feature names in the source layer
-                    true,
-                    false,
-                ],
-            });
-        }
 
         for (const index in layersSubListSymbols) {
             map.addLayer({
