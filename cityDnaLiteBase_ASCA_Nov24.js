@@ -196,8 +196,8 @@ map.on("load", function () {
 
 //   map.addSource("QRcode", {
 //     type: 'image', 
-//     url: 'testQR.png'
-//     // url: 'https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.png'
+//     url: 'testQR.svg'
+//     // url: 'https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg'
 //   });
 
   // Define each map state within a function.
@@ -679,7 +679,7 @@ map.on("load", function () {
     //CODE TO LOAD QR CODE IMAGES - I CAN'T GET THIS TO WORK BECAUSE OF BLOODY CORS ERRORS SO I'M USING A CIRCLE LAYER INSTEAD
     // ALSO CODE IN <head> TO PRELOAD IMAGES, AND A MAP.ADDSOURCE() WHERE I ADD THE QR CODE
     // NOTE THAT EACH WILL NEED A DIFFERENT QR CODE, SO I'LL NEED TO ADD A LOOP SO WE ARE PULLING THE CORRECT FILE IN ICON-IMAGE
-    map.loadImage("https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.png", (error, image) => {
+    map.loadImage("https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg", (error, image) => {
       if (error) throw error;
       map.addImage("QRcode", image, {'sdf': true});
       for (const index in layersSubListQRSymbols) {
