@@ -79,7 +79,7 @@
         .graphicsHeightBounds {
             position: relative;
             display: block;
-            height: 400px;
+            min-height: 200px;
             margin-top: 50px;
             /* border: solid 2px mediumseagreen; */
         }
@@ -87,7 +87,7 @@
         .graphicsWidthBounds {
             position: relative;
             display: block;
-            width: calc(80vw);
+            width: 80%;
             height: inherit;
             margin: 0 auto;
             /* border: solid 2px orange; */
@@ -130,7 +130,7 @@
 
         .sliderOuterBox {
             position: relative;
-            width: calc(80vw);
+            width: 80%;
             /* matches the width of the graphic */
             height: 30px;
             margin: 0 auto;
@@ -152,8 +152,9 @@
         .buttonBox {
             position: relative;
             margin: 0 auto;
-            /* height: 100px;
-            width: 200px; */
+            /* min-height: 100px; */
+            padding-bottom: 50px;
+            /* width: 200px; */
             /* border: solid 2px greenyellow; */
 
         }
@@ -164,7 +165,7 @@
             display: block;
             margin: 0 auto;
             margin-top: 20px;
-            width: calc(60vh * 0.8 * 0.8);
+            width: 80%;
         }
 
         .button a {
@@ -221,7 +222,7 @@
             display: none;
             margin: 0 auto;
             margin-top: 20px;
-            width: 50vw;
+            width: 50%;
             height: 50px;
             /* background-color: peachpuff; */
             text-align: center;
@@ -232,7 +233,7 @@
             display: none;
             margin: 0 auto;
             margin-top: 20px;
-            width: 50vw;
+            width: 50%;
             height: 50px;
             /* background-color: darkslategrey; */
             text-align: center;
@@ -241,7 +242,7 @@
         #jsonMessage {
             position: relative;
             display: block;
-            width: 30vw;
+            width: 30%;
             margin: 0 auto;
         }
     </style>
@@ -266,7 +267,7 @@
         <div id="sliderOuter" class="sliderOuterBox">
             <div id="sliderInner" class="sliderInnerBox"></div>
         </div>
-        <div>
+        <div class="buttonBox">
             <div id="gameButton" class="button">
                 <a href="#">Pump that drain!</a>
             </div>
