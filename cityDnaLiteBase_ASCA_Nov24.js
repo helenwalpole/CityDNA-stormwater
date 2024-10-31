@@ -560,13 +560,13 @@ map.on("load", function () {
 
             // southbankWaterLevelDemo[globalStormwaterStep] = southbankWaterLevelDemo[globalStormwaterStep] + 0.6;
 
-            if (countGameIntervals == 100) {
+            if (countGameIntervals == 80) {
                 map.setPaintProperty("Show stormwater sensor locations", "circle-color", "#edea3b")
             };
-            if (countGameIntervals == 130) {
+            if (countGameIntervals == 100) {
                 map.setPaintProperty("Show stormwater sensor locations", "circle-color", "#eb962f")
             };
-            if (countGameIntervals == 160) {
+            if (countGameIntervals == 120) {
                 map.setPaintProperty("Show stormwater sensor locations", "circle-color", "#eb2f2f")
             };
 
