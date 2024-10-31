@@ -867,43 +867,43 @@ map.on("load", function () {
 
             // Are any drains due to block this interval?
             // Manually set the blockage schedule
-            if ((globalStep - 15) % 80 === 0) {
+            if ((globalStep - 115) % 180 === 0) {
                 //every 12 intervals, starting at int 4
                 blockDrain("SW1");
             }
-            if ((globalStep - 24) % 70 === 0) {
+            if ((globalStep - 224) % 170 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW8");
             }
-            if ((globalStep - 35) % 60 === 0) {
+            if ((globalStep - 185) % 160 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW10");
             }
-            if ((globalStep - 46) % 50 === 0) {
+            if ((globalStep - 146) % 150 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW2");
             }
-            if ((globalStep - 55) % 42 === 0) {
+            if ((globalStep - 155) % 142 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW5");
             }
-            if ((globalStep - 70) % 38 === 0) {
+            if ((globalStep - 170) % 138 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW6");
             }
-            if ((globalStep - 81) % 83 === 0) {
+            if ((globalStep - 181) % 183 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW7");
             }
-            if ((globalStep - 93) % 49 === 0) {
+            if ((globalStep - 193) % 149 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW3");
             }
-            if ((globalStep - 108) % 98 === 0) {
+            if ((globalStep - 108) % 198 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW9");
             }
-            if ((globalStep - 130) % 44 === 0) {
+            if ((globalStep - 130) % 144 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW4");
             }
