@@ -10,7 +10,7 @@ const melbCoords = [144.9602, -37.8158];
 // Instantiate a map
 const map = new mapboxgl.Map({
     container: "map",
-    style: "mapbox://styles/gisfeedback/cl28atjkh000815nmlfpw22n3", //CityDNA projector, dark mode
+    style: "mapbox://styles/gisfeedback/cl28atjkh000815nmlfpw22n3", //CityDNA projector, dark mode  
     center: melbCoords,
     // 'center': [144.9452, -37.8108],
     zoom: 14.225,
@@ -194,7 +194,12 @@ map.on("load", function () {
         url: "mapbox://gisfeedback.80q2csfn",
     });
 
-    //   map.addSource("QRcode", {
+    // map.loadImage("https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg", (error, image) => {
+    //     //     if (error) throw error;
+    //         map.addImage("testQR1", image);
+    // });
+
+    //   map.addSource("testQR1", {
     //     type: 'image', 
     //     url: 'testQR.svg'
     //     // url: 'https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg'
@@ -347,7 +352,7 @@ map.on("load", function () {
     statesList.push(loadClueAreas); // [0],1
     stateNamesList.push("loadClueAreas");
 
-    // 5 - STORMWATER SENSORS
+    // 5 - STORMWATER SENSOR LOCATIONS
     function loadStormwaterLocationStory() {
         layersList = ["Show stormwater sensor locations"];
         map.addLayer({
@@ -362,8 +367,239 @@ map.on("load", function () {
             },
         });
     }
-    statesList.push(loadStormwaterLocationStory); // [0],1
+    statesList.push(loadStormwaterLocationStory);
     stateNamesList.push("loadStormwaterLocationStory");
+
+    // This is the data that defines each stormwater drain when operating normally.
+    // Ensure the waterLevel arrays loop smoothly (ie, are a multiple of tidal intervals at 12.5 hours)
+    const swDrainSource = [
+        {
+            drainID: "SW1",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                0.01, 0.03, 0.06, 0.11, 0.18, 0.26, 0.35, 0.45, 0.55, 0.67, 0.79, 0.91, 1.04, 1.16, 1.28, 1.40, 1.51, 1.62, 1.71, 1.79, 1.86, 1.92, 1.96, 1.99, 2.00, 1.99, 1.97, 1.93, 1.88, 1.81, 1.73, 1.64, 1.54, 1.43, 1.32, 1.19, 1.07, 0.95, 0.82, 0.70, 0.58, 0.47, 0.37, 0.28, 0.20, 0.13, 0.08, 0.04, 0.01, 0.00,
+            ],
+        },
+        {
+            drainID: "SW2",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                0.21, 0.23, 0.26, 0.31, 0.38, 0.46, 0.55, 0.65, 0.75, 0.87, 0.99, 1.11, 1.24, 1.36, 1.48, 1.60, 1.71, 1.82, 1.91, 1.99, 2.06, 2.12, 2.16, 2.19, 2.20, 2.19, 2.17, 2.13, 2.08, 2.01, 1.93, 1.84, 1.74, 1.63, 1.52, 1.39, 1.27, 1.15, 1.02, 0.90, 0.78, 0.67, 0.57, 0.48, 0.40, 0.33, 0.28, 0.24, 0.21, 0.20,
+            ],
+        },
+        {
+            drainID: "SW3",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                0.81, 0.83, 0.86, 0.91, 0.98, 1.06, 1.15, 1.25, 1.35, 1.47, 1.59, 1.71, 1.84, 1.96, 2.08, 2.20, 2.31, 2.42, 2.51, 2.59, 2.66, 2.72, 2.76, 2.79, 2.80, 2.79, 2.77, 2.73, 2.68, 2.61, 2.53, 2.44, 2.34, 2.23, 2.12, 1.99, 1.87, 1.75, 1.62, 1.50, 1.38, 1.27, 1.17, 1.08, 1.00, 0.93, 0.88, 0.84, 0.81, 0.80,
+            ],
+        },
+        {
+            drainID: "SW4",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                0.11, 0.13, 0.16, 0.21, 0.28, 0.36, 0.45, 0.55, 0.65, 0.77, 0.89, 1.01, 1.14, 1.26, 1.38, 1.50, 1.61, 1.72, 1.81, 1.89, 1.96, 2.02, 2.06, 2.09, 2.10, 2.09, 2.07, 2.03, 1.98, 1.91, 1.83, 1.74, 1.64, 1.53, 1.42, 1.29, 1.17, 1.05, 0.92, 0.80, 0.68, 0.57, 0.47, 0.38, 0.30, 0.23, 0.18, 0.14, 0.11, 0.10,
+            ],
+        },
+        {
+            drainID: "SW5",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                0.91, 0.93, 0.96, 1.01, 1.08, 1.16, 1.25, 1.35, 1.45, 1.57, 1.69, 1.81, 1.94, 2.06, 2.18, 2.30, 2.41, 2.52, 2.61, 2.69, 2.76, 2.82, 2.86, 2.89, 2.90, 2.89, 2.87, 2.83, 2.78, 2.71, 2.63, 2.54, 2.44, 2.33, 2.22, 2.09, 1.97, 1.85, 1.72, 1.60, 1.48, 1.37, 1.27, 1.18, 1.10, 1.03, 0.98, 0.94, 0.91, 0.90,
+            ],
+        },
+        {
+            drainID: "SW6",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                1.81, 1.83, 1.86, 1.91, 1.98, 2.06, 2.15, 2.25, 2.35, 2.47, 2.59, 2.71, 2.84, 2.96, 3.08, 3.20, 3.31, 3.42, 3.51, 3.59, 3.66, 3.72, 3.76, 3.79, 3.80, 3.79, 3.77, 3.73, 3.68, 3.61, 3.53, 3.44, 3.34, 3.23, 3.12, 2.99, 2.87, 2.75, 2.62, 2.50, 2.38, 2.27, 2.17, 2.08, 2.00, 1.93, 1.88, 1.84, 1.81, 1.80,
+            ],
+        },
+        {
+            drainID: "SW7",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                1.41, 1.43, 1.46, 1.51, 1.58, 1.66, 1.75, 1.85, 1.95, 2.07, 2.19, 2.31, 2.44, 2.56, 2.68, 2.80, 2.91, 3.02, 3.11, 3.19, 3.26, 3.32, 3.36, 3.39, 3.40, 3.39, 3.37, 3.33, 3.28, 3.21, 3.13, 3.04, 2.94, 2.83, 2.72, 2.59, 2.47, 2.35, 2.22, 2.10, 1.98, 1.87, 1.77, 1.68, 1.60, 1.53, 1.48, 1.44, 1.41, 1.40,
+            ],
+        },
+        {
+            drainID: "SW8",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                0.31, 0.33, 0.36, 0.41, 0.48, 0.56, 0.65, 0.75, 0.85, 0.97, 1.09, 1.21, 1.34, 1.46, 1.58, 1.70, 1.81, 1.92, 2.01, 2.09, 2.16, 2.22, 2.26, 2.29, 2.30, 2.29, 2.27, 2.23, 2.18, 2.11, 2.03, 1.94, 1.84, 1.73, 1.62, 1.49, 1.37, 1.25, 1.12, 1.00, 0.88, 0.77, 0.67, 0.58, 0.50, 0.43, 0.38, 0.34, 0.31, 0.30,
+            ],
+        },
+        {
+            drainID: "SW9",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                0.41, 0.43, 0.46, 0.51, 0.58, 0.66, 0.75, 0.85, 0.95, 1.07, 1.19, 1.31, 1.44, 1.56, 1.68, 1.80, 1.91, 2.02, 2.11, 2.19, 2.26, 2.32, 2.36, 2.39, 2.40, 2.39, 2.37, 2.33, 2.28, 2.21, 2.13, 2.04, 1.94, 1.83, 1.72, 1.59, 1.47, 1.35, 1.22, 1.10, 0.98, 0.87, 0.77, 0.68, 0.60, 0.53, 0.48, 0.44, 0.41, 0.40,
+            ],
+        },
+        {
+            drainID: "SW10",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                1.41, 1.43, 1.46, 1.51, 1.58, 1.66, 1.75, 1.85, 1.95, 2.07, 2.19, 2.31, 2.44, 2.56, 2.68, 2.80, 2.91, 3.02, 3.11, 3.19, 3.26, 3.32, 3.36, 3.39, 3.40, 3.39, 3.37, 3.33, 3.28, 3.21, 3.13, 3.04, 2.94, 2.83, 2.72, 2.59, 2.47, 2.35, 2.22, 2.10, 1.98, 1.87, 1.77, 1.68, 1.60, 1.53, 1.48, 1.44, 1.41, 1.40,
+            ],
+        },
+        {
+            drainID: "SW11",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                1.51, 1.53, 1.56, 1.61, 1.68, 1.76, 1.85, 1.95, 2.05, 2.17, 2.29, 2.41, 2.54, 2.66, 2.78, 2.90, 3.01, 3.12, 3.21, 3.29, 3.36, 3.42, 3.46, 3.49, 3.50, 3.49, 3.47, 3.43, 3.38, 3.31, 3.23, 3.14, 3.04, 2.93, 2.82, 2.69, 2.57, 2.45, 2.32, 2.20, 2.08, 1.97, 1.87, 1.78, 1.70, 1.63, 1.58, 1.54, 1.51, 1.50,
+            ],
+        },
+        {
+            drainID: "SW12",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                0.61, 0.63, 0.66, 0.71, 0.78, 0.86, 0.95, 1.05, 1.15, 1.27, 1.39, 1.51, 1.64, 1.76, 1.88, 2.00, 2.11, 2.22, 2.31, 2.39, 2.46, 2.52, 2.56, 2.59, 2.60, 2.59, 2.57, 2.53, 2.48, 2.41, 2.33, 2.24, 2.14, 2.03, 1.92, 1.79, 1.67, 1.55, 1.42, 1.30, 1.18, 1.07, 0.97, 0.88, 0.80, 0.73, 0.68, 0.64, 0.61, 0.60,
+            ],
+        },
+        {
+            drainID: "SW13",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                1.71, 1.73, 1.76, 1.81, 1.88, 1.96, 2.05, 2.15, 2.25, 2.37, 2.49, 2.61, 2.74, 2.86, 2.98, 3.10, 3.21, 3.32, 3.41, 3.49, 3.56, 3.62, 3.66, 3.69, 3.70, 3.69, 3.67, 3.63, 3.58, 3.51, 3.43, 3.34, 3.24, 3.13, 3.02, 2.89, 2.77, 2.65, 2.52, 2.40, 2.28, 2.17, 2.07, 1.98, 1.90, 1.83, 1.78, 1.74, 1.71, 1.70,
+            ],
+        },
+        {
+            drainID: "SW14",
+            status: "clear",
+            trigger: false,
+            blockageTimer: 0,
+            waterLevel: [
+                1.21, 1.23, 1.26, 1.31, 1.38, 1.46, 1.55, 1.65, 1.75, 1.87, 1.99, 2.11, 2.24, 2.36, 2.48, 2.60, 2.71, 2.82, 2.91, 2.99, 3.06, 3.12, 3.16, 3.19, 3.20, 3.19, 3.17, 3.13, 3.08, 3.01, 2.93, 2.84, 2.74, 2.63, 2.52, 2.39, 2.27, 2.15, 2.02, 1.90, 1.78, 1.67, 1.57, 1.48, 1.40, 1.33, 1.28, 1.24, 1.21, 1.20,
+            ],
+        },
+    ];
+
+    // 6 - STORMWATER SENSOR DEMO DATA
+    function loadStormwaterDataStory() {
+        layersList = ["Show stormwater sensor locations"];
+        map.addLayer({
+            id: "Show stormwater sensor locations",
+            source: "stormwater sensors",
+            "source-layer": "CDX_CityDNA_stormwaterSensors",
+            type: "circle",
+            paint: {
+                "circle-color": "#FFffFF",
+                "circle-radius": 20,
+                "circle-opacity": 1,
+            },
+        });
+    }
+    statesList.push(loadStormwaterDataStory);
+    stateNamesList.push("loadStormwaterDataStory");
+
+
+    // 7 - SOUTHBANK STORMWATER SENSOR DEMO DATA
+    function loadSouthbankStormwaterDataStory() {
+        layersList = ["Show stormwater sensor locations"];
+        map.addLayer({
+            id: "Show stormwater sensor locations",
+            source: "stormwater sensors",
+            "source-layer": "CDX_CityDNA_stormwaterSensors",
+            type: "circle",
+            paint: {
+                "circle-color": "#3277a8",
+                "circle-radius": 18,
+                "circle-opacity": 1,
+            },
+            filter: [
+                "match",
+                ["get", "name"],
+                "SW9",
+                true,
+                false,
+            ],
+
+        });
+        let southbankWaterLevelDemo = [
+            1.21, 1.23, 1.26, 1.31, 1.38, 1.46, 1.55, 1.65, 1.75, 1.87, 1.99, 2.11, 2.24, 2.36, 2.48, 2.60, 2.71, 2.82, 2.91, 2.99, 3.06, 3.12, 3.16, 3.19, 3.20, 3.19, 3.17, 3.13, 3.08, 3.01, 2.93, 2.84, 2.74, 2.63, 2.52, 2.39, 2.27, 2.15, 2.02, 1.90, 1.78, 1.67, 1.57, 1.48, 1.40, 1.33, 1.28, 1.24, 1.21, 1.20, 1.21, 1.23, 1.26, 1.31, 1.38, 1.46, 1.55, 1.65, 1.75, 1.87, 1.99, 2.11, 2.24, 2.36, 2.48, 2.60, 2.71, 2.82, 2.91, 2.99, 3.06, 3.12, 3.18, 3.22, 3.26, 3.30, 3.34, 3.38, 3.42, 3.46, 3.50, 4, 4.25, 4.5, 4.75, 5, 5.25, 5.50, 5.75, 6.00, 6.25, 6.50, 6.75, 7.00, 7.25, 7.50, 7.75, 8.00, 8.25, 8.50, 8.75, 9.00, 9.25, 9.50, 9.75, 10.00, 10.25, 10.50, 10.75, 11.00, 11.25, 11.50, 11.75, 12.00, 12.25, 12.50, 12.75, 13.00, 13.25, 13.50, 13.75, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
+        ];
+
+
+        let countGameIntervals = -1;
+        const maxGameLength = 200;
+        let globalStormwaterStep = -1;
+
+        let southbankStormwaterAnimation = setInterval(() => {
+            countGameIntervals += 1;
+            console.log("gameInterval is ", countGameIntervals);
+            globalStormwaterStep = (globalStormwaterStep + 1) % southbankWaterLevelDemo.length;
+
+            map.setPaintProperty("Show stormwater sensor locations", "circle-radius", (southbankWaterLevelDemo[globalStormwaterStep] * 2 + 15))
+
+            // southbankWaterLevelDemo[globalStormwaterStep] = southbankWaterLevelDemo[globalStormwaterStep] + 0.6;
+
+            if (countGameIntervals == 100) {
+                map.setPaintProperty("Show stormwater sensor locations", "circle-color", "#edea3b")
+            };
+            if (countGameIntervals == 130) {
+                map.setPaintProperty("Show stormwater sensor locations", "circle-color", "#eb962f")
+            };
+            if (countGameIntervals == 160) {
+                map.setPaintProperty("Show stormwater sensor locations", "circle-color", "#eb2f2f")
+            };
+
+            if (countGameIntervals == maxGameLength) {
+                clearInterval(southbankStormwaterAnimation);
+            };
+
+        }, 150);
+    };
+    statesList.push(loadSouthbankStormwaterDataStory);
+    stateNamesList.push("loadSouthbankStormwaterDataStory");
+
+
+    // 8 - STORMWATER SENSOR GAME DEMO
+    function loadStormwaterGameDemoStory() {
+        layersList = ["Show stormwater sensor locations"];
+        map.addLayer({
+            id: "Show stormwater sensor locations",
+            source: "stormwater sensors",
+            "source-layer": "CDX_CityDNA_stormwaterSensors",
+            type: "circle",
+            paint: {
+                "circle-color": "#FFffFF",
+                "circle-radius": 20,
+                "circle-opacity": 1,
+            },
+        });
+    }
+    statesList.push(loadStormwaterGameDemoStory);
+    stateNamesList.push("loadStormwaterGameDemoStory");
+
+
+
 
     //////////////////////
     //  STORMWATER GAME //
@@ -372,8 +608,8 @@ map.on("load", function () {
     // GLOBAL VARIABLES
 
     // Variables controlling game timing
-    const animationRate = 200; // ADJUST THIS to set the length of an 'interval', in milliseconds. 200 is good.
-    const gameLength = 40; // ADJUST THIS to set the length of overall gameplay, in seconds
+    const animationRate = 150; // ADJUST THIS to set the length of an 'interval', in milliseconds. 200 is good.
+    const gameLength = 30; // ADJUST THIS to set the length of overall gameplay, in seconds
     const gameTotalIntervals = (gameLength / animationRate) * 1000; // number of intervals in game
     let globalStep = -1; // Start at -1 so that first increment is 0
 
@@ -397,174 +633,17 @@ map.on("load", function () {
         "SW14",
     ];
 
-    // This is the data that defines each stormwater drain when operating normally.
-    // Ensure the waterLevel arrays loop smoothly (ie, are a multiple of tidal intervals at 12.5 hours)
-    const swDrainSource = [
-        {
-            drainID: "SW1",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.0, 1.87, 1.52, 1.04, 0.55, 0.17, 0.0, 0.09, 0.4, 0.87, 1.37, 1.78,
-                1.99, 1.94, 1.66, 1.21, 0.71, 0.28, 0.03, 0.03, 0.28, 0.7, 1.21, 1.66,
-                1.94, 1.99, 1.78, 1.38, 0.88, 0.41, 0.87, 1.37, 1.78,
-            ],
-        },
-        {
-            drainID: "SW2",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.8, 2.65, 2.23, 1.65, 1.06, 0.61, 0.4, 0.51, 0.89, 1.45, 2.05, 2.53,
-                2.78, 2.73, 2.39, 1.86, 1.25, 0.74, 0.44, 0.44, 0.73, 1.24, 1.85, 2.39,
-                2.73, 2.78, 2.54, 2.05, 1.45, 0.89, 1.45, 2.05, 2.53,
-            ],
-        },
-        {
-            drainID: "SW3",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.4, 2.29, 1.97, 1.54, 1.1, 0.75, 0.6, 0.68, 0.96, 1.38, 1.83, 2.2,
-                2.39, 2.35, 2.1, 1.69, 1.24, 0.85, 0.63, 0.63, 0.85, 1.23, 1.69, 2.09,
-                2.35, 2.39, 2.2, 1.84, 1.39, 0.97, 1.38, 1.83, 2.2,
-            ],
-        },
-        {
-            drainID: "SW4",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.0, 1.87, 1.52, 1.04, 0.55, 0.17, 0.0, 0.09, 0.4, 0.87, 1.37, 1.78,
-                1.99, 1.94, 1.66, 1.21, 0.71, 0.28, 0.03, 0.03, 0.28, 0.7, 1.21, 1.66,
-                1.94, 1.99, 1.78, 1.38, 0.88, 0.41, 0.87, 1.37, 1.78,
-            ],
-        },
-        {
-            drainID: "SW5",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.8, 2.65, 2.23, 1.65, 1.06, 0.61, 0.4, 0.51, 0.89, 1.45, 2.05, 2.53,
-                2.78, 2.73, 2.39, 1.86, 1.25, 0.74, 0.44, 0.44, 0.73, 1.24, 1.85, 2.39,
-                2.73, 2.78, 2.54, 2.05, 1.45, 0.89, 1.45, 2.05, 2.53,
-            ],
-        },
-        {
-            drainID: "SW6",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.4, 2.29, 1.97, 1.54, 1.1, 0.75, 0.6, 0.68, 0.96, 1.38, 1.83, 2.2,
-                2.39, 2.35, 2.1, 1.69, 1.24, 0.85, 0.63, 0.63, 0.85, 1.23, 1.69, 2.09,
-                2.35, 2.39, 2.2, 1.84, 1.39, 0.97, 1.38, 1.83, 2.2,
-            ],
-        },
-        {
-            drainID: "SW7",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.0, 1.87, 1.52, 1.04, 0.55, 0.17, 0.0, 0.09, 0.4, 0.87, 1.37, 1.78,
-                1.99, 1.94, 1.66, 1.21, 0.71, 0.28, 0.03, 0.03, 0.28, 0.7, 1.21, 1.66,
-                1.94, 1.99, 1.78, 1.38, 0.88, 0.41, 0.87, 1.37, 1.78,
-            ],
-        },
-        {
-            drainID: "SW8",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.8, 2.65, 2.23, 1.65, 1.06, 0.61, 0.4, 0.51, 0.89, 1.45, 2.05, 2.53,
-                2.78, 2.73, 2.39, 1.86, 1.25, 0.74, 0.44, 0.44, 0.73, 1.24, 1.85, 2.39,
-                2.73, 2.78, 2.54, 2.05, 1.45, 0.89, 1.45, 2.05, 2.53,
-            ],
-        },
-        {
-            drainID: "SW9",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.4, 2.29, 1.97, 1.54, 1.1, 0.75, 0.6, 0.68, 0.96, 1.38, 1.83, 2.2,
-                2.39, 2.35, 2.1, 1.69, 1.24, 0.85, 0.63, 0.63, 0.85, 1.23, 1.69, 2.09,
-                2.35, 2.39, 2.2, 1.84, 1.39, 0.97, 1.38, 1.83, 2.2,
-            ],
-        },
-        {
-            drainID: "SW10",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.0, 1.87, 1.52, 1.04, 0.55, 0.17, 0.0, 0.09, 0.4, 0.87, 1.37, 1.78,
-                1.99, 1.94, 1.66, 1.21, 0.71, 0.28, 0.03, 0.03, 0.28, 0.7, 1.21, 1.66,
-                1.94, 1.99, 1.78, 1.38, 0.88, 0.41, 0.87, 1.37, 1.78,
-            ],
-        },
-        {
-            drainID: "SW11",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.8, 2.65, 2.23, 1.65, 1.06, 0.61, 0.4, 0.51, 0.89, 1.45, 2.05, 2.53,
-                2.78, 2.73, 2.39, 1.86, 1.25, 0.74, 0.44, 0.44, 0.73, 1.24, 1.85, 2.39,
-                2.73, 2.78, 2.54, 2.05, 1.45, 0.89, 1.45, 2.05, 2.53,
-            ],
-        },
-        {
-            drainID: "SW12",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.4, 2.29, 1.97, 1.54, 1.1, 0.75, 0.6, 0.68, 0.96, 1.38, 1.83, 2.2,
-                2.39, 2.35, 2.1, 1.69, 1.24, 0.85, 0.63, 0.63, 0.85, 1.23, 1.69, 2.09,
-                2.35, 2.39, 2.2, 1.84, 1.39, 0.97, 1.38, 1.83, 2.2,
-            ],
-        },
-        {
-            drainID: "SW13",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.0, 1.87, 1.52, 1.04, 0.55, 0.17, 0.0, 0.09, 0.4, 0.87, 1.37, 1.78,
-                1.99, 1.94, 1.66, 1.21, 0.71, 0.28, 0.03, 0.03, 0.28, 0.7, 1.21, 1.66,
-                1.94, 1.99, 1.78, 1.38, 0.88, 0.41, 0.87, 1.37, 1.78,
-            ],
-        },
-        {
-            drainID: "SW14",
-            status: "clear",
-            trigger: false,
-            blockageTimer: 0,
-            waterLevel: [
-                2.8, 2.65, 2.23, 1.65, 1.06, 0.61, 0.4, 0.51, 0.89, 1.45, 2.05, 2.53,
-                2.78, 2.73, 2.39, 1.86, 1.25, 0.74, 0.44, 0.44, 0.73, 1.24, 1.85, 2.39,
-                2.73, 2.78, 2.54, 2.05, 1.45, 0.89, 1.45, 2.05, 2.53,
-            ],
-        },
-    ];
+
 
     // On initiation, clone swDrainSource data into swDrainLive without reference to the original.
     // This is the data that will be updated in response to gameplay.
     let swDrainLive = JSON.parse(JSON.stringify(swDrainSource));
 
     // Variables to manage updating the symbology of the drains
-    const amplitudeMultiplier = 2.8; // ADJUST THIS to set the size of the radius at highest tide.
-    const amplitudeBaseline = 20; //ADJUST THIS to set the size of the radius at lowest-tide.
-    const floodTimeLimit = 25; // ADJUST THIS to set how long between a blockage and a flood.
-    const thresoldIncrement = 3; // ADJUST THIS to set how long it takes to move between alert thresholds
+    const amplitudeMultiplier = 3.0; // ADJUST THIS to set the size of the radius at highest tide. (2.8)
+    const amplitudeBaseline = 15; //ADJUST THIS to set the size of the radius at lowest-tide. (20)
+    const floodTimeLimit = 50; // ADJUST THIS to set how long between a blockage and a flood. (25)
+    const thresholdIncrement = 4; // ADJUST THIS to set how long it takes to move between alert thresholds (3)
     // also consider making thresholdIncrement an array to set individual tolerances for each drain.
     const incrementValue = 0.15; // ADJUST THIS to set how quickly the flood level rises.
 
@@ -577,14 +656,12 @@ map.on("load", function () {
     let alertThresholdFlooded = [];
 
     for (index in swDrainSource) {
-        // get the highest tide value (index zero) from the source file and apply standard conversion
-        const blueThreshold =
-            swDrainSource[index].waterLevel[0] * amplitudeMultiplier +
-            amplitudeBaseline; //take the high tide and apply multipliers
-        const yellowThreshold = blueThreshold + thresoldIncrement;
-        const orangeThreshold = yellowThreshold + thresoldIncrement;
-        const redThreshold = orangeThreshold + thresoldIncrement;
-        const floodedThreshold = redThreshold + thresoldIncrement;
+        // get the highest tide value (index 25) from the source file and apply standard conversion
+        const blueThreshold = swDrainSource[index].waterLevel[25] * amplitudeMultiplier + amplitudeBaseline + thresholdIncrement; //take the high tide and apply multipliers then add 'thresholdIncrement' to allow for some overflow before triggering orange. 
+        const yellowThreshold = blueThreshold + thresholdIncrement;
+        const orangeThreshold = yellowThreshold + thresholdIncrement;
+        const redThreshold = orangeThreshold + thresholdIncrement;
+        const floodedThreshold = redThreshold + thresholdIncrement;
 
         // add to the arrays
         alertThresholdBlue.push(blueThreshold);
@@ -628,6 +705,8 @@ map.on("load", function () {
     function loadStormwaterGame() {
         // Create arrays with the names of the sensors which correspond to
         // the 'name' field in the mapbox data source, which we will use througout.
+        restoreBackgroundLayer();
+
         let layersSubListCircles = drainIdArray;
 
         let layersSubListSymbols = [];
@@ -679,34 +758,35 @@ map.on("load", function () {
         //CODE TO LOAD QR CODE IMAGES - I CAN'T GET THIS TO WORK BECAUSE OF BLOODY CORS ERRORS SO I'M USING A CIRCLE LAYER INSTEAD
         // ALSO CODE IN <head> TO PRELOAD IMAGES, AND A MAP.ADDSOURCE() WHERE I ADD THE QR CODE
         // NOTE THAT EACH WILL NEED A DIFFERENT QR CODE, SO I'LL NEED TO ADD A LOOP SO WE ARE PULLING THE CORRECT FILE IN ICON-IMAGE
-        map.loadImage("https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg", (error, image) => {
-            if (error) throw error;
-            map.addImage("QRcode", image);
-            for (const index in layersSubListQRSymbols) {
-                map.addLayer({
-                    id: layersSubListQRSymbols[index],
-                    source: "stormwater sensors",
-                    "source-layer": "CDX_CityDNA_stormwaterSensors",
-                    type: "symbol",
-                    layout: {
-                        "icon-image": "QRcode",
-                        "icon-size": 12,
-                        "icon-anchor": 'center',
-                        // This layer is not visible initially.
-                        // It will be updated to 'visible' by blockedDrain()
-                        // 'visibility': 'none',
-                        'visibility': 'visible',
-                    },
-                    filter: [
-                        "match",
-                        ["get", "name"],
-                        layersSubListCircles[index], // use SubListCircles list as it matches the feature names in the source layer
-                        true,
-                        false,
-                    ],
-                });
-            }
-        });
+        // map.loadImage("https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg", (error, image) => {
+        //     if (error) throw error;
+        //     map.addImage("testQR1", image);
+
+        //     for (const index in layersSubListQRSymbols) {
+        //         map.addLayer({
+        //             id: layersSubListQRSymbols[index],
+        //             source: "stormwater sensors",
+        //             "source-layer": "CDX_CityDNA_stormwaterSensors",
+        //             type: "symbol",
+        //             layout: {
+        //                 "icon-image": "testQR1",
+        //                 "icon-size": 12,
+        //                 "icon-anchor": 'center',
+        //                 // This layer is not visible initially.
+        //                 // It will be updated to 'visible' by blockedDrain()
+        //                 // 'visibility': 'none',
+        //                 'visibility': 'visible',
+        //             },
+        //             filter: [
+        //                 "match",
+        //                 ["get", "name"],
+        //                 layersSubListCircles[index], // use SubListCircles list as it matches the feature names in the source layer
+        //                 true,
+        //                 false,
+        //             ],
+        //         });
+        //     }
+        // });
 
         for (const index in layersSubListSymbols) {
             map.addLayer({
@@ -752,7 +832,7 @@ map.on("load", function () {
         }
 
         // remove the dimmable overlay
-        map.setLayoutProperty("dimmableOverlayLayer", "visibility", "none");
+        restoreBackgroundLayer();
 
         // Let's get this party started!
         startGame();
@@ -764,6 +844,7 @@ map.on("load", function () {
 
     function startGame() {
         console.log("Game started");
+        // restoreBackgroundLayer(); //not working?
 
         let countGameIntervals = -1;
 
@@ -989,7 +1070,7 @@ map.on("load", function () {
         map.setPaintProperty(
             swDrainSymbolLayerID,
             "circle-color",
-            "rgba(252, 3, 3,0.6)"
+            "rgba(252, 3, 3, 1)"
         );
 
         // Make the related CIRCLE layer for this drain invisible (the circle-radius will keep updating, but this doesn't matter)
@@ -1003,7 +1084,8 @@ map.on("load", function () {
         document.getElementById("legend").innerHTML =
             "GAME OVER! Thanks for playing";
         // map.setLayoutProperty('dimmableOverlayLayer', 'visibility', 'visible');
-        dimBackgroundLayer(); //NOTWORKING
+        // dimBackgroundLayer(); 
+
         // reset symbols for drains that have not overflowed
 
         // remove any visible QR codes and retain all splats
@@ -1068,7 +1150,7 @@ map.on("load", function () {
                 statesList[keyInput - 1]();
                 map.moveLayer("maskLayer");
                 map.moveLayer("Show Town Hall");
-                dimBackgroundLayer();
+                // dimBackgroundLayer();
             } else {
                 clearLayerFromMap(stateId);
             }
