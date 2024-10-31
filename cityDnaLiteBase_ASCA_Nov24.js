@@ -891,19 +891,19 @@ map.on("load", function () {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW6");
             }
-            if ((globalStep - 81) % 33 === 0) {
+            if ((globalStep - 81) % 83 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW7");
             }
-            if ((globalStep - 93) % 29 === 0) {
+            if ((globalStep - 93) % 49 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW3");
             }
-            if ((globalStep - 108) % 18 === 0) {
+            if ((globalStep - 108) % 98 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW9");
             }
-            if ((globalStep - 130) % 14 === 0) {
+            if ((globalStep - 130) % 44 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW4");
             }
