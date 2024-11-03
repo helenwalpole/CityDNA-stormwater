@@ -224,7 +224,7 @@ map.on("load", function () {
         source: "Town Hall",
         type: "symbol",
         layout: {
-            'icon-image': 'snowmobile',
+            'icon-image': 'spriteTestDNA',
             // 'icon-size': 1
         }
     });
