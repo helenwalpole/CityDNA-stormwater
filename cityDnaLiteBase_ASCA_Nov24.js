@@ -194,6 +194,14 @@ map.on("load", function () {
         url: "mapbox://gisfeedback.80q2csfn",
     });
 
+    map.loadImage(
+        'https://docs.mapbox.com/mapbox-gl-js/assets/cat.png',
+        function (error, image) {
+            if (error) throw error;
+            map.addImage('qrIcon', image);
+        }
+    );
+
     // map.loadImage("https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg", (error, image) => {
     //     //     if (error) throw error;
     //         map.addImage("testQR1", image);
@@ -213,12 +221,14 @@ map.on("load", function () {
     map.addLayer({
         id: "Show Town Hall",
         source: "Town Hall",
-        type: "circle",
-        paint: {
-            "circle-radius": 5,
-            "circle-color": "#f00",
-        },
+        type: "symbol",
+        layout: {
+            'icon-image': 'qrIcon',
+            // 'icon-size': 1
+        }
     });
+
+
 
     // 1 - PRECOLONIAL WATER / VEG
     function loadHistoricWaterbodiesStory() {
