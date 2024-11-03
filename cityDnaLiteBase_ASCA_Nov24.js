@@ -220,12 +220,25 @@ map.on("load", function () {
 
     // add a circle for Town Hall that will remain visible regardless of other layers.
     map.addLayer({
-        id: "Show Town Hall",
+        id: "Show Town Hall Circle",
+        source: "Town Hall",
+        type: "circle",
+        layout: {
+            'circle-radius': 10,
+            'circle-color': '#FF0000',
+
+        }
+    });
+
+    map.addLayer({
+        id: "Show Town Hall Symbol",
         source: "Town Hall",
         type: "symbol",
         layout: {
             'icon-image': 'qrIcon',
-            // 'icon-size': 1
+            'icon-size': 0.2,
+            'icon-align': top,
+            'icon-offset': [15,15], //right, down
         }
     });
 
