@@ -223,11 +223,10 @@ map.on("load", function () {
         id: "Show Town Hall Circle",
         source: "Town Hall",
         type: "circle",
-        layout: {
-            'circle-radius': 10,
-            'circle-color': '#FF0000',
-
-        }
+        paint: {
+            "circle-radius": 5,
+            "circle-color": "#f00",
+        },
     });
 
     map.addLayer({
@@ -238,7 +237,7 @@ map.on("load", function () {
             'icon-image': 'qrIcon',
             'icon-size': 0.2,
             'icon-align': top,
-            'icon-offset': [15,15], //right, down
+            'icon-offset': [100,250], //right, down
         }
     });
 
@@ -1173,7 +1172,7 @@ map.on("load", function () {
                 currentActiveLayer = stateId;
                 statesList[keyInput - 1]();
                 map.moveLayer("maskLayer");
-                map.moveLayer("Show Town Hall");
+                map.moveLayer("Show Town Hall Circle");
                 // dimBackgroundLayer();
             } else {
                 clearLayerFromMap(stateId);
