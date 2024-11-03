@@ -20,11 +20,11 @@ const map = new mapboxgl.Map({
 
 map.on("load", function () {
     // disable manual movement of the map
-    map.keyboard.disable();
-    map.scrollZoom.disable();
-    map.doubleClickZoom.disable();
-    map.dragPan.disable();
-    map.boxZoom.disable();
+    // map.keyboard.disable();
+    // map.scrollZoom.disable();
+    // map.doubleClickZoom.disable();
+    // map.dragPan.disable();
+    // map.boxZoom.disable();
 
     // Add overlay layer to the map to use for a dimming effect.
     // Create large geojson polygon
@@ -195,7 +195,8 @@ map.on("load", function () {
     });
 
     map.loadImage(
-        'https://docs.mapbox.com/mapbox-gl-js/assets/cat.png',
+        // 'https://docs.mapbox.com/mapbox-gl-js/assets/cat.png',
+        'https://github.com/helenwalpole/CityDNA-stormwater/blob/0ca45bf632c2ed56fbbdc4eff3c6a679e60b97f9/iconFloatingBottle.png',
         function (error, image) {
             if (error) throw error;
             map.addImage('qrIcon', image);
