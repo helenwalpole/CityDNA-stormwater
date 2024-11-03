@@ -195,8 +195,8 @@ map.on("load", function () {
     });
 
     map.loadImage(
-        'https://docs.mapbox.com/mapbox-gl-js/assets/cat.png',
-        // 'https://github.com/helenwalpole/CityDNA-stormwater/blob/0ca45bf632c2ed56fbbdc4eff3c6a679e60b97f9/iconFloatingBottle.png',
+        // 'https://docs.mapbox.com/mapbox-gl-js/assets/cat.png',
+        'https://live.staticflickr.com/65535/54113490174_87d1b239ea.jpg',
         function (error, image) {
             if (error) throw error;
             map.addImage('qrIcon', image);
@@ -224,7 +224,7 @@ map.on("load", function () {
         source: "Town Hall",
         type: "symbol",
         layout: {
-            'icon-image': 'spriteTestDNA',
+            'icon-image': 'qrIcon',
             // 'icon-size': 1
         }
     });
