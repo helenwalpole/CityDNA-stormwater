@@ -20,11 +20,11 @@ const map = new mapboxgl.Map({
 
 map.on("load", function () {
     // disable manual movement of the map
-    // map.keyboard.disable();
-    // map.scrollZoom.disable();
-    // map.doubleClickZoom.disable();
-    // map.dragPan.disable();
-    // map.boxZoom.disable();
+    map.keyboard.disable();
+    map.scrollZoom.disable();
+    map.doubleClickZoom.disable();
+    map.dragPan.disable();
+    map.boxZoom.disable();
 
     // Add overlay layer to the map to use for a dimming effect.
     // Create large geojson polygon
@@ -170,6 +170,11 @@ map.on("load", function () {
         url: "mapbox://gisfeedback.879gqh08",
     });
 
+    map.addSource("stormwater drains", {
+        type: "vector",
+        url: "mapbox://gisfeedback.6cmfloda",
+    });
+
     map.addSource("Town Hall", {
         type: "geojson",
         data: {
@@ -195,7 +200,6 @@ map.on("load", function () {
     });
 
     map.loadImage(
-        // 'https://docs.mapbox.com/mapbox-gl-js/assets/cat.png',
         'https://live.staticflickr.com/65535/54113490174_87d1b239ea.jpg',
         function (error, image) {
             if (error) throw error;
@@ -203,16 +207,7 @@ map.on("load", function () {
         }
     );
 
-    // map.loadImage("https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg", (error, image) => {
-    //     //     if (error) throw error;
-    //         map.addImage("testQR1", image);
-    // });
 
-    //   map.addSource("testQR1", {
-    //     type: 'image', 
-    //     url: 'testQR.svg'
-    //     // url: 'https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg'
-    //   });
 
     // Define each map state within a function.
     // A map state can contain multiple layers and/or animation, and is sort of like a powerpoint 'slide'.
@@ -220,7 +215,7 @@ map.on("load", function () {
 
     // add a circle for Town Hall that will remain visible regardless of other layers.
     map.addLayer({
-        id: "Show Town Hall Circle",
+        id: "Show Town Hall",
         source: "Town Hall",
         type: "circle",
         paint: {
@@ -228,20 +223,6 @@ map.on("load", function () {
             "circle-color": "#f00",
         },
     });
-
-    map.addLayer({
-        id: "Show Town Hall Symbol",
-        source: "Town Hall",
-        type: "symbol",
-        layout: {
-            'icon-image': 'qrIcon',
-            'icon-size': 0.2,
-            'icon-align': top,
-            'icon-offset': [100,250], //right, down
-        }
-    });
-
-
 
     // 1 - PRECOLONIAL WATER / VEG
     function loadHistoricWaterbodiesStory() {
@@ -354,38 +335,51 @@ map.on("load", function () {
 
     // STORMWATER DRAIN NETWORK - CLUE BLOCKS AS PROXY
     // 1 - CLUE BLOCKS
-    function loadClueAreas() {
-        layersList = ["Show clue areas"];
+    function loadStormwaterDrainsStory() {
+        layersList = ["Show stormwater drains"];
         map.addLayer({
-            id: "Show clue areas",
-            source: "clue boundaries",
-            "source-layer": "Blocks_for_Census_of_Land_Use-2sbg4c",
+            id: "Show stormwater drains",
+            source: "stormwater drains",
+            "source-layer": "CDX_stormwaterDrains-bm7w6h",
             type: "line",
             paint: {
-                "line-color": "#ffffff",
-                "line-width": 3,
-                "line-opacity": 0.8,
+                "line-color": "#9cdef0",
+                "line-width": 1.5,
+                "line-opacity": 0.9,
             },
         });
         document.getElementById("legend").innerHTML = `
         <div style='text-align: left'>        
-        <div class='legendLabel'>Clue boundaries outlines</div>
+        <div class='legendLabel'>Stormwater Drains</div>
         </div>`;
     }
-    statesList.push(loadClueAreas); // [0],1
-    stateNamesList.push("loadClueAreas");
+    statesList.push(loadStormwaterDrainsStory); // [0],1
+    stateNamesList.push("loadStormwaterDrainsStory");
 
     // 5 - STORMWATER SENSOR LOCATIONS
     function loadStormwaterLocationStory() {
-        layersList = ["Show stormwater sensor locations"];
+        layersList = ["Show stormwater sensor locations", "Show stormwater sensor location rings"];
         map.addLayer({
             id: "Show stormwater sensor locations",
             source: "stormwater sensors",
             "source-layer": "CDX_CityDNA_stormwaterSensors",
             type: "circle",
             paint: {
-                "circle-color": "#FFffFF",
-                "circle-radius": 20,
+                "circle-color": "#9cdef0",
+                "circle-radius": 10,
+                "circle-opacity": 1,
+            },
+        });
+        map.addLayer({
+            id: "Show stormwater sensor location rings",
+            source: "stormwater sensors",
+            "source-layer": "CDX_CityDNA_stormwaterSensors",
+            type: "circle",
+            paint: {
+                "circle-color": 'rgba(0,0,0,0)',
+                "circle-stroke-color": "#ffffff",
+                "circle-stroke-width": 2,
+                "circle-radius": 16,
                 "circle-opacity": 1,
             },
         });
@@ -538,7 +532,34 @@ map.on("load", function () {
                 "circle-opacity": 1,
             },
         });
-    }
+        //DEMO GOOGLE SHEETS
+        const googleAPIKey = 'AIzaSyBzJwy_PUnw9-uunEXmuEn6GTrOXGH5KRU'; // Replace with your API key
+        const spreadsheetId = '1Zx3CyyEMYr20QdV1hA6t2mKijNoTWeWZ9WmDZwKunEw'; // Replace with your spreadsheet ID
+        const sheetName = 'sensorStatus'; // Replace with your sheet name
+        const sheetSource = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${googleAPIKey}`
+
+        fetch(sheetSource)
+            .then(response => response.json())
+            .then(data => console.log(data.values))
+            .catch(error => console.error('Error:', error));
+        // const currentSWdata = data.values;
+        // console.log(currentSWdata);
+
+        function updateData(status, cell) {
+            sheetSource.spreadsheets.values.update({
+                spreadsheetId: spreadsheetId,
+                range: cell,
+                valueInputOption: "USER_ENTERED",
+                resource: {
+                    values: [[status]],
+                },
+            });
+            console.log("sheet updated!")
+        };
+        updateData("blocked", 'sensorStatus!B2');
+
+    };
+
     statesList.push(loadStormwaterDataStory);
     stateNamesList.push("loadStormwaterDataStory");
 
@@ -722,7 +743,7 @@ map.on("load", function () {
         "11 PM",
     ];
 
-    // 6 - STORMWATER GAME
+    // 9 - STORMWATER GAME
     // Add the layers to the map using the usual CityDNA method
 
     function loadStormwaterGame() {
@@ -779,37 +800,48 @@ map.on("load", function () {
         // This will carry the QR codes and the 'splat' images.
 
         //CODE TO LOAD QR CODE IMAGES - I CAN'T GET THIS TO WORK BECAUSE OF BLOODY CORS ERRORS SO I'M USING A CIRCLE LAYER INSTEAD
-        // ALSO CODE IN <head> TO PRELOAD IMAGES, AND A MAP.ADDSOURCE() WHERE I ADD THE QR CODE
         // NOTE THAT EACH WILL NEED A DIFFERENT QR CODE, SO I'LL NEED TO ADD A LOOP SO WE ARE PULLING THE CORRECT FILE IN ICON-IMAGE
-        // map.loadImage("https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg", (error, image) => {
-        //     if (error) throw error;
-        //     map.addImage("testQR1", image);
+        const qrOffsetList = [
+            [100, 250], //SW1
+            [200, -250], //SW2
+            [300, 250], //SW3
+            [-100, -250], //SW4
+            [-100, -250], //SW5
+            [100, 250], //SW6
+            [100, -250], //SW7
+            [100, 250], //SW8
+            [100, 250], //SW9
+            [100, 250], //SW10
+            [100, 250], //SW11
+            [100, 250], //SW12
+            [100, 250], //SW13
+            [100, 250] //SW14
+        ]
+        for (const index in layersSubListQRSymbols) {
+            map.addLayer({
+                id: layersSubListQRSymbols[index],
+                source: "stormwater sensors",
+                "source-layer": "CDX_CityDNA_stormwaterSensors",
+                type: "symbol",
+                layout: {
+                    "icon-image": "qrIcon",
+                    "icon-size": 0.1,
+                    "icon-offset": qrOffsetList[index], //right, down
+                    // This layer is not visible initially.
+                    // It will be updated to 'visible' by blockedDrain()
+                    // 'visibility': 'none',
+                    'visibility': 'visible',
+                },
+                filter: [
+                    "match",
+                    ["get", "name"],
+                    layersSubListCircles[index], // use SubListCircles list as it matches the feature names in the source layer
+                    true,
+                    false,
+                ],
+            });
+        };
 
-        //     for (const index in layersSubListQRSymbols) {
-        //         map.addLayer({
-        //             id: layersSubListQRSymbols[index],
-        //             source: "stormwater sensors",
-        //             "source-layer": "CDX_CityDNA_stormwaterSensors",
-        //             type: "symbol",
-        //             layout: {
-        //                 "icon-image": "testQR1",
-        //                 "icon-size": 12,
-        //                 "icon-anchor": 'center',
-        //                 // This layer is not visible initially.
-        //                 // It will be updated to 'visible' by blockedDrain()
-        //                 // 'visibility': 'none',
-        //                 'visibility': 'visible',
-        //             },
-        //             filter: [
-        //                 "match",
-        //                 ["get", "name"],
-        //                 layersSubListCircles[index], // use SubListCircles list as it matches the feature names in the source layer
-        //                 true,
-        //                 false,
-        //             ],
-        //         });
-        //     }
-        // });
 
         for (const index in layersSubListSymbols) {
             map.addLayer({
@@ -1172,7 +1204,7 @@ map.on("load", function () {
                 currentActiveLayer = stateId;
                 statesList[keyInput - 1]();
                 map.moveLayer("maskLayer");
-                map.moveLayer("Show Town Hall Circle");
+                map.moveLayer("Show Town Hall");
                 // dimBackgroundLayer();
             } else {
                 clearLayerFromMap(stateId);
