@@ -24,7 +24,12 @@
       const API_KEY = 'AIzaSyBzJwy_PUnw9-uunEXmuEn6GTrOXGH5KRU';
 
       // Discovery doc URL for APIs used by the quickstart
-      const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
+      const spreadsheetId = '1Zx3CyyEMYr20QdV1hA6t2mKijNoTWeWZ9WmDZwKunEw'; // Replace with your spreadsheet ID
+        const sheetName = 'sensorStatus'; // Replace with your sheet name
+        const sheetSource = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${googleAPIKey}`
+
+      // const DISCOVERY_DOC = 'https://sheets.googleapis.com/$discovery/rest?version=v4';
+      const DISCOVERY_DOC = sheetSource;
 
       // Authorization scopes required by the API; multiple scopes can be
       // included, separated by spaces.
@@ -126,7 +131,7 @@
           // Fetch first 10 files
           response = await gapi.client.sheets.spreadsheets.values.get({
             spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-            range: 'Class Data!A2:E',
+            range: 'sensorStatus!A2:E',
           });
         } catch (err) {
           document.getElementById('content').innerText = err.message;
