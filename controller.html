@@ -277,16 +277,22 @@
             </div>
         </div>
         <div id="jsonMessage"></div>
+        <button onclick="updateSheet()">click me!</button>
+
     </div>
 
     <!-- load City DNA javascript after html has loaded in -->
     <script>
+        let drainID = new URLSearchParams(window.location.search).get('drainID')
         // Use URLquery data to populate the text in the title box
-        // const drainID = window.location.search
-        const drainID = 'SW1';
+        if (drainID == '') {
+            drainID = 'SW14'
+        };
+
+        // const drainID = 'SW1';
         let gameTimeElapsed = 0;
         let pumpCount = 0;
-        const gameTimeLimit = 7;
+        const gameTimeLimit = 10;
 
         // Display total game time on the countdown timer
         document.getElementById("countdownTimer").innerHTML = `<h3>${gameTimeLimit} seconds</h3>`;
@@ -301,7 +307,7 @@
             console.log(gameTimeElapsed);
             document.getElementById("countdownTimer").innerHTML = `<h3>${countdown} seconds</h3>`;
             if (gameTimeElapsed == gameTimeLimit) {
-                endGame(drainID, "failure");
+                endGame("failure");
                 clearInterval(gameTimer);
             };
 
@@ -311,7 +317,7 @@
             console.log("pumpDrain()")
             pumpCount += 1;
             // calculate percentage to render
-            const clearanceValue = 0 + (pumpCount * 5); //increments in 5% units, starting at 0
+            const clearanceValue = 0 + (pumpCount * 10); //increments in 5% units, starting at 0
             const clearanceValueString = clearanceValue + "%";
             console.log(clearanceValueString);
             document.getElementsByClassName("sliderInnerBox")[0].style.width = clearanceValueString;
@@ -320,10 +326,10 @@
 
             // if we're at 100%, end the game
             if (clearanceValue == 100) {
-                endGame(drainID, "success");
+                endGame("success", gameTimeElapsed);
             };
         }
-        function endGame(drainID, status) {
+        function endGame(status, gameEndedTimer) {
             if (status == "success") { // this is what happens if you clear the drain in time
                 //hide the button
                 document.getElementById("gameButton").style.display = "none";
@@ -334,7 +340,7 @@
                 //update the graphic
                 document.getElementById("icon").src = "iconHappyWorker.png";
                 //send the JSON packet to the city DNA table to reset the drain to status 'clear'
-                document.getElementById("jsonMessage").innerHTML = `{${drainID}: success}`;
+                updateSheet(gameEndedTimer);
 
             } else { // This is what happens if you don't clear the drain in time
                 //hide the button
@@ -349,6 +355,47 @@
             };
             clearInterval(gameTimer);
         };
+
+        ////////////////////////////////////////////
+        // SEND THE GAME DATA TO THE GOOGLE SHEET //
+        ////////////////////////////////////////////
+
+        
+        function updateSheet(gameEndedTimer) {
+            
+            // create the ranges in A1 notation for the drains. 
+            // As SW1 is in range A1:C1, and SW2 is A2:C2, this can be done with string operators. 
+            
+            const drainIdNumeral = drainID.slice(2); //take the numerals from the 2th position to the end, ie, remove the 'SW'
+            const drainStatusRange = 'B'.concat(drainIdNumeral);
+            const blockTimeRange = 'C'.concat(drainIdNumeral);
+            const blockTime = gameEndedTimer.toString();
+            const origin = 'handheld';
+            
+            // encode the data for the URI Param strings
+            const encodeddrainStatusRange = encodeURIComponent(drainStatusRange);
+            const encodedBlockTimeRange = encodeURIComponent(blockTimeRange);
+            const encodedBlockTime = encodeURIComponent(blockTime);
+            const encodedOrigin = encodeURIComponent(origin);
+
+            const spreadsheetUrl = 'https://script.google.com/macros/s/AKfycbySnga-x5bvHzn8POMawK-3RH14Pe_9MiSMxIZES1mElx29j9V0VGtjINiipMcFmXJlrg/exec' 
+                + '?origin='
+                + encodedOrigin
+                + '&drainStatusRange=' 
+                + encodeddrainStatusRange 
+                + '&blockTimeRange=' 
+                + encodedBlockTimeRange
+                + '&blockTime=' 
+                + encodedBlockTime;
+
+            // use fetch() to pass this data to the google web app via the uri params
+            fetch(spreadsheetUrl)
+                .then(response => response.text())
+                .then (data => console.log(data))
+                .catch(error => console.error('Error with fetch:', error))
+        };
+
+
 
     </script>
 </body>

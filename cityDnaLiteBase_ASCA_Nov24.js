@@ -532,33 +532,10 @@ map.on("load", function () {
                 "circle-opacity": 1,
             },
         });
-        //DEMO GOOGLE SHEETS
-        const googleAPIKey = 'AIzaSyBzJwy_PUnw9-uunEXmuEn6GTrOXGH5KRU'; // Replace with your API key
-        const spreadsheetId = '1Zx3CyyEMYr20QdV1hA6t2mKijNoTWeWZ9WmDZwKunEw'; // Replace with your spreadsheet ID
-        const sheetName = 'sensorStatus'; // Replace with your sheet name
-        const sheetSource = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${googleAPIKey}`
 
-        fetch(sheetSource)
-            .then(response => response.json())
-            .then(data => console.log(data.values))
-            .catch(error => console.error('Error:', error));
-        // const currentSWdata = data.values;
-        // console.log(currentSWdata);
-
-        function updateData(status, cell) {
-            sheetSource.spreadsheets.values.update({
-                spreadsheetId: spreadsheetId,
-                range: cell,
-                valueInputOption: "USER_ENTERED",
-                resource: {
-                    values: [[status]],
-                },
-            });
-            console.log("sheet updated!")
-        };
-        updateData("blocked", 'sensorStatus!B2');
 
     };
+
 
     statesList.push(loadStormwaterDataStory);
     stateNamesList.push("loadStormwaterDataStory");
@@ -743,6 +720,11 @@ map.on("load", function () {
         "11 PM",
     ];
 
+    const spreadsheetUrl = 'https://script.google.com/macros/s/AKfycbySnga-x5bvHzn8POMawK-3RH14Pe_9MiSMxIZES1mElx29j9V0VGtjINiipMcFmXJlrg/exec'
+        + '?origin=table'
+
+
+
     // 9 - STORMWATER GAME
     // Add the layers to the map using the usual CityDNA method
 
@@ -912,6 +894,31 @@ map.on("load", function () {
                 endGame(gameAnimation); // note that we still finish this pass over the below code before ending
             }
 
+            
+            // CHECK DATA FROM GOOGLE SHEET //
+            
+            //  Once per second, check the spreadsheet for any drains cleared by players, then reset the spreadsheet
+            if (countGameIntervals % ((animationRate/gameLength)*2) == 0) { // eg, every 2 seconds
+                fetch(spreadsheetUrl)
+                    .then(response => response.text())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error with fetch():', error));
+                console.log('second')
+            }
+
+            // ALTERNATIVE METHOD
+            // const googleAPIKey = 'AIzaSyBzJwy_PUnw9-uunEXmuEn6GTrOXGH5KRU'; // Replace with your API key
+            // const spreadsheetId = '1Zx3CyyEMYr20QdV1hA6t2mKijNoTWeWZ9WmDZwKunEw'; // Replace with your spreadsheet ID
+            // const sheetName = 'sensorStatus!A1:C14'; // Replace with your sheet name
+            // const sheetSource = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${googleAPIKey}`
+
+            // fetch(sheetSource)
+            //     .then(response => response.json())
+            //     .then(data => console.log(data.values))
+            //     .catch(error => console.error('Error:', error));
+
+
+
             // Update legend to show day/time for this interval
             // TO DO: create game countdown timer
             // TO DO, LOW PRIORITY: also calculate day / date etc from globalStep
@@ -922,43 +929,43 @@ map.on("load", function () {
 
             // Are any drains due to block this interval?
             // Manually set the blockage schedule
-            if ((globalStep - 115) % 180 === 0) {
+            if ((globalStep - 0) % 180 === 0) {
                 //every 12 intervals, starting at int 4
                 blockDrain("SW1");
             }
-            if ((globalStep - 224) % 170 === 0) {
+            if ((globalStep - 10) % 170 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW8");
             }
-            if ((globalStep - 185) % 160 === 0) {
+            if ((globalStep - 20) % 160 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW10");
             }
-            if ((globalStep - 146) % 150 === 0) {
+            if ((globalStep - 30) % 150 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW2");
             }
-            if ((globalStep - 155) % 142 === 0) {
+            if ((globalStep - 40) % 140 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW5");
             }
-            if ((globalStep - 170) % 138 === 0) {
+            if ((globalStep - 50) % 130 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW6");
             }
-            if ((globalStep - 181) % 183 === 0) {
+            if ((globalStep - 60) % 120 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW7");
             }
-            if ((globalStep - 193) % 149 === 0) {
+            if ((globalStep - 70) % 110 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW3");
             }
-            if ((globalStep - 108) % 198 === 0) {
+            if ((globalStep - 80) % 100 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW9");
             }
-            if ((globalStep - 130) % 144 === 0) {
+            if ((globalStep - 90) % 90 === 0) {
                 //every 14 intervals, starting at int 7
                 blockDrain("SW4");
             }
