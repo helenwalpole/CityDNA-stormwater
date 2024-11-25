@@ -794,7 +794,7 @@ map.on("load", function () {
 
     // 8 - STORMWATER SENSOR GAME DEMO
     function loadStormwaterGameDemoStory() {
-        layersList = ["Show stormwater game sensor locations"];
+        layersList = ["Show stormwater game sensor locations", 'Show demo Qr Symbols'];
         map.addLayer({
             id: "Show stormwater game sensor locations",
             source: "stormwater game",
@@ -806,6 +806,42 @@ map.on("load", function () {
                 "circle-opacity": 1,
             },
         });
+        const qrIconList = [
+            'qrIcon1',
+            'qrIcon2',
+            'qrIcon3',
+            'qrIcon4',
+            'qrIcon5',
+            'qrIcon6',
+            'qrIcon7',
+            'qrIcon8'
+        ]
+            map.addLayer({
+                id: 'Show demo Qr Symbols',
+                source: "stormwater game QRs",
+                "source-layer": "CDX_CityDNA_game_stormwaterSenso",
+                type: "symbol",
+                layout: {
+                    "icon-image": ['match', ['get', 'name'], 
+                        'SW1', 'qrIcon1',
+                        'SW2', 'qrIcon2',
+                        'SW3', 'qrIcon3',
+                        'SW4', 'qrIcon4',
+                        'SW5', 'qrIcon5',
+                        'SW6', 'qrIcon6',
+                        'SW7', 'qrIcon7',
+                        'SW8', 'qrIcon8',
+                        'qrIcon1'
+                        ],
+                    "icon-size": 0.08,
+                    // "icon-offset": qrOffsetList[index], //right, down
+                    // This layer is not visible initially.
+                    // It will be updated to 'visible' by blockedDrain()
+                    // 'visibility': 'none',
+                    'visibility': 'visible',
+                },
+            });
+
     }
     statesList.push(loadStormwaterGameDemoStory);
     stateNamesList.push("loadStormwaterGameDemoStory");
