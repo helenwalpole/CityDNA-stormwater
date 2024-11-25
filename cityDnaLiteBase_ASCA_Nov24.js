@@ -833,7 +833,7 @@ map.on("load", function () {
                         'SW8', 'qrIcon8',
                         'qrIcon1'
                         ],
-                    "icon-size": 0.08,
+                    "icon-size": 0.15,
                     // "icon-offset": qrOffsetList[index], //right, down
                     // This layer is not visible initially.
                     // It will be updated to 'visible' by blockedDrain()
