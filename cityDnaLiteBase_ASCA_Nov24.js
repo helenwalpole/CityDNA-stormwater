@@ -170,6 +170,11 @@ map.on("load", function () {
         url: "mapbox://gisfeedback.879gqh08",
     });
 
+    map.addSource("stormwater drains", {
+        type: "vector",
+        url: "mapbox://gisfeedback.6cmfloda",
+    });
+
     map.addSource("Town Hall", {
         type: "geojson",
         data: {
@@ -194,16 +199,97 @@ map.on("load", function () {
         url: "mapbox://gisfeedback.80q2csfn",
     });
 
-    // map.loadImage("https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg", (error, image) => {
-    //     //     if (error) throw error;
-    //         map.addImage("testQR1", image);
-    // });
+    map.loadImage(
+        'https://live.staticflickr.com/65535/54162401719_982b54ba7c.jpg',
+        function (error, image) {
+            if (error) throw error;
+            map.addImage('qrIcon1', image);
+        }
+    );
 
-    //   map.addSource("testQR1", {
-    //     type: 'image', 
-    //     url: 'testQR.svg'
-    //     // url: 'https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg'
-    //   });
+    map.loadImage(
+        'https://live.staticflickr.com/65535/54162362528_2b69234efc.jpg',
+        function (error, image) {
+            if (error) throw error;
+            map.addImage('qrIcon2', image);
+        }
+    );
+
+    map.loadImage(
+        'https://live.staticflickr.com/65535/54162544515_28c52a6ebc.jpg',
+        function (error, image) {
+            if (error) throw error;
+            map.addImage('qrIcon3', image);
+        }
+    );
+
+    map.loadImage(
+        'https://live.staticflickr.com/65535/54162088081_55bc6fcb90.jpg',
+        function (error, image) {
+            if (error) throw error;
+            map.addImage('qrIcon4', image);
+        }
+    );
+
+    map.loadImage(
+        'https://live.staticflickr.com/65535/54162362393_ed2d60de2c.jpg',
+        function (error, image) {
+            if (error) throw error;
+            map.addImage('qrIcon5', image);
+        }
+    );
+
+    map.loadImage(
+        'https://live.staticflickr.com/65535/54162544415_ce05e47298.jpg',
+        function (error, image) {
+            if (error) throw error;
+            map.addImage('qrIcon6', image);
+        }
+    );
+
+    map.loadImage(
+        'https://live.staticflickr.com/65535/54162401634_2a5ee8884f.jpg',
+        function (error, image) {
+            if (error) throw error;
+            map.addImage('qrIcon7', image);
+        }
+    );
+
+    map.loadImage(
+        'https://live.staticflickr.com/65535/54162088031_ae10853f76.jpg',
+        function (error, image) {
+            if (error) throw error;
+            map.addImage('qrIcon8', image);
+        }
+    );
+
+    map.loadImage(
+        'https://live.staticflickr.com/65535/54163596577_fb22da9566_t.jpg',
+        function (error, image) {
+            if (error) throw error;
+            map.addImage('alertIcon', image);
+        }
+    );
+
+    map.loadImage(
+        'https://live.staticflickr.com/65535/54164945355_816d30797d_t.jpg',
+        function (error, image) {
+            if (error) throw error;
+            map.addImage('brokenIcon', image);
+        }
+    );
+
+    map.addSource("stormwater game", {
+        type: 'vector',
+        url: 'mapbox://gisfeedback.cm3w5zpo61z131mnav8q5p55z-3aipm'
+    });
+
+
+    map.addSource("stormwater game QRs", {
+        type: 'vector',
+        url: 'mapbox://gisfeedback.cm3w8fkzd1kq21ut6vgtihrsp-7otg3'
+    });
+
 
     // Define each map state within a function.
     // A map state can contain multiple layers and/or animation, and is sort of like a powerpoint 'slide'.
@@ -215,8 +301,10 @@ map.on("load", function () {
         source: "Town Hall",
         type: "circle",
         paint: {
-            "circle-radius": 5,
-            "circle-color": "#f00",
+            "circle-radius": 10,
+            "circle-stroke-color": "#ff7adc",
+            "circle-stroke-width": 2,
+            "circle-color": 'rgba(0,0,0,0)'
         },
     });
 
@@ -331,38 +419,51 @@ map.on("load", function () {
 
     // STORMWATER DRAIN NETWORK - CLUE BLOCKS AS PROXY
     // 1 - CLUE BLOCKS
-    function loadClueAreas() {
-        layersList = ["Show clue areas"];
+    function loadStormwaterDrainsStory() {
+        layersList = ["Show stormwater drains"];
         map.addLayer({
-            id: "Show clue areas",
-            source: "clue boundaries",
-            "source-layer": "Blocks_for_Census_of_Land_Use-2sbg4c",
+            id: "Show stormwater drains",
+            source: "stormwater drains",
+            "source-layer": "CDX_stormwaterDrains-bm7w6h",
             type: "line",
             paint: {
-                "line-color": "#ffffff",
-                "line-width": 3,
-                "line-opacity": 0.8,
+                "line-color": "#9cdef0",
+                "line-width": 1.5,
+                "line-opacity": 0.9,
             },
         });
         document.getElementById("legend").innerHTML = `
         <div style='text-align: left'>        
-        <div class='legendLabel'>Clue boundaries outlines</div>
+        <div class='legendLabel'>Stormwater Drains</div>
         </div>`;
     }
-    statesList.push(loadClueAreas); // [0],1
-    stateNamesList.push("loadClueAreas");
+    statesList.push(loadStormwaterDrainsStory); // [0],1
+    stateNamesList.push("loadStormwaterDrainsStory");
 
     // 5 - STORMWATER SENSOR LOCATIONS
     function loadStormwaterLocationStory() {
-        layersList = ["Show stormwater sensor locations"];
+        layersList = ["Show stormwater sensor locations", "Show stormwater sensor location rings"];
         map.addLayer({
             id: "Show stormwater sensor locations",
             source: "stormwater sensors",
             "source-layer": "CDX_CityDNA_stormwaterSensors",
             type: "circle",
             paint: {
-                "circle-color": "#FFffFF",
-                "circle-radius": 20,
+                "circle-color": "#9cdef0",
+                "circle-radius": 10,
+                "circle-opacity": 1,
+            },
+        });
+        map.addLayer({
+            id: "Show stormwater sensor location rings",
+            source: "stormwater sensors",
+            "source-layer": "CDX_CityDNA_stormwaterSensors",
+            type: "circle",
+            paint: {
+                "circle-color": 'rgba(0,0,0,0)',
+                "circle-stroke-color": "#ffffff",
+                "circle-stroke-width": 2,
+                "circle-radius": 16,
                 "circle-opacity": 1,
             },
         });
@@ -370,7 +471,8 @@ map.on("load", function () {
     statesList.push(loadStormwaterLocationStory);
     stateNamesList.push("loadStormwaterLocationStory");
 
-    // This is the data that defines each stormwater drain when operating normally.
+    // This is the data that defines each stormwater drain when operating normally. 
+    // BE AWARE THAT EDITING THIS DATA WILL AFFECT MULTIPLE LAYERS AND ACTIONS
     // Ensure the waterLevel arrays loop smoothly (ie, are a multiple of tidal intervals at 12.5 hours)
     const swDrainSource = [
         {
@@ -503,33 +605,99 @@ map.on("load", function () {
 
     // 6 - STORMWATER SENSOR DEMO DATA
     function loadStormwaterDataStory() {
-        layersList = ["Show stormwater sensor locations"];
+        layersList = ["Show demo stormwater sensors", "Show demo stormwater sensor location rings"];
         map.addLayer({
-            id: "Show stormwater sensor locations",
+            id: "Show demo stormwater sensors",
             source: "stormwater sensors",
             "source-layer": "CDX_CityDNA_stormwaterSensors",
             type: "circle",
             paint: {
-                "circle-color": "#FFffFF",
-                "circle-radius": 20,
+                "circle-color": "#9cdef0",
+                "circle-radius": ['match', ['get', 'name'],
+                    'SW1', (swDrainLive[0].waterLevel[0] * 3 + 6),
+                    'SW2', (swDrainLive[1].waterLevel[0] * 3 + 6),
+                    'SW3', (swDrainLive[2].waterLevel[0] * 3 + 6),
+                    'SW4', (swDrainLive[3].waterLevel[0] * 3 + 6),
+                    'SW5', (swDrainLive[4].waterLevel[0] * 3 + 6),
+                    'SW6', (swDrainLive[5].waterLevel[0] * 3 + 6),
+                    'SW7', (swDrainLive[6].waterLevel[0] * 3 + 6),
+                    'SW8', (swDrainLive[7].waterLevel[0] * 3 + 6),
+                    'SW9', (swDrainLive[8].waterLevel[0] * 3 + 6),
+                    'SW10', (swDrainLive[9].waterLevel[0] * 3 + 6),
+                    'SW11', (swDrainLive[10].waterLevel[0] * 3 + 6),
+                    'SW12', (swDrainLive[11].waterLevel[0] * 3 + 6),
+                    'SW13', (swDrainLive[12].waterLevel[0] * 3 + 6),
+                    'SW14', (swDrainLive[13].waterLevel[0] * 3 + 6),
+                    12
+                ],
                 "circle-opacity": 1,
             },
         });
-    }
+        map.addLayer({
+            id: "Show demo stormwater sensor location rings",
+            source: "stormwater sensors",
+            "source-layer": "CDX_CityDNA_stormwaterSensors",
+            type: "circle",
+            paint: {
+                "circle-color": 'rgba(0,0,0,0)',
+                "circle-stroke-color": "#ffffff",
+                "circle-stroke-width": 2,
+                "circle-radius": 16,
+                "circle-opacity": 1,
+            },
+        });
+
+        let countDemoIntervals = 0;
+        let arrayCounter = 0;
+
+
+        let demoWeeklyAnimation = setInterval(() => {
+            console.log('demo animation state', countDemoIntervals);
+            arrayCounter = countDemoIntervals % swDrainLive[0].waterLevel.length;
+
+            map.setPaintProperty('Show demo stormwater sensors', 'circle-radius', ['match', ['get', 'name'],
+                'SW1', (swDrainLive[0].waterLevel[arrayCounter] * 3 + 6),
+                'SW2', (swDrainLive[1].waterLevel[arrayCounter] * 3 + 6),
+                'SW3', (swDrainLive[2].waterLevel[arrayCounter] * 3 + 6),
+                'SW4', (swDrainLive[3].waterLevel[arrayCounter] * 3 + 6),
+                'SW5', (swDrainLive[4].waterLevel[arrayCounter] * 3 + 6),
+                'SW6', (swDrainLive[5].waterLevel[arrayCounter] * 3 + 6),
+                'SW7', (swDrainLive[6].waterLevel[arrayCounter] * 3 + 6),
+                'SW8', (swDrainLive[7].waterLevel[arrayCounter] * 3 + 6),
+                'SW9', (swDrainLive[8].waterLevel[arrayCounter] * 3 + 6),
+                'SW10', (swDrainLive[9].waterLevel[arrayCounter] * 3 + 6),
+                'SW11', (swDrainLive[10].waterLevel[arrayCounter] * 3 + 6),
+                'SW12', (swDrainLive[11].waterLevel[arrayCounter] * 3 + 6),
+                'SW13', (swDrainLive[12].waterLevel[arrayCounter] * 3 + 6),
+                'SW14', (swDrainLive[13].waterLevel[arrayCounter] * 3 + 6),
+                12
+            ]);
+
+            countDemoIntervals += 1;
+
+            if (countDemoIntervals == 200) { // length of animation (*150/1000 to convert to seconds; 200 is 30")
+                clearInterval(demoWeeklyAnimation);
+            }
+        }, 150);
+
+
+    };
+
+
     statesList.push(loadStormwaterDataStory);
     stateNamesList.push("loadStormwaterDataStory");
 
 
     // 7 - SOUTHBANK STORMWATER SENSOR DEMO DATA
     function loadSouthbankStormwaterDataStory() {
-        layersList = ["Show stormwater sensor locations"];
+        layersList = ["Show southbank sensor location", "Show southbank alert icon", "Show southbank location ring"];
         map.addLayer({
-            id: "Show stormwater sensor locations",
+            id: "Show southbank sensor location",
             source: "stormwater sensors",
             "source-layer": "CDX_CityDNA_stormwaterSensors",
             type: "circle",
             paint: {
-                "circle-color": "#3277a8",
+                "circle-color": "#9cdef0",
                 "circle-radius": 18,
                 "circle-opacity": 1,
             },
@@ -542,62 +710,109 @@ map.on("load", function () {
             ],
 
         });
+
+        map.addLayer({
+            id: "Show southbank location ring",
+            source: "stormwater sensors",
+            "source-layer": "CDX_CityDNA_stormwaterSensors",
+            type: "circle",
+            paint: {
+                "circle-color": 'rgba(0,0,0,0)',
+                "circle-stroke-color": "#ffffff",
+                "circle-stroke-width": 2,
+                "circle-radius": 16,
+                "circle-opacity": 1,
+            },
+            filter: [
+                "match",
+                ["get", "name"],
+                "SW9",
+                true,
+                false,
+            ],
+        });
+
+
+        map.addLayer({
+            id: "Show southbank alert icon",
+            source: "stormwater game QRs", //this layer offsets the icons to clear/flat space on the 3d model
+            "source-layer": "CDX_CityDNA_game_stormwaterSenso",
+            type: "symbol",
+            layout: {
+                "icon-image": 'alertIcon',
+                "icon-size": 0.5,
+                // This layer is not visible initially.
+                // It will be updated to 'visible' by blockedDrain()
+                // 'visibility': 'none',
+                'visibility': 'none',
+            },
+            filter: [
+                "match",
+                ["get", "name"],
+                "SW3", // the nearest flat space for the icon 
+                true,
+                false,
+            ],
+        });
+
         let southbankWaterLevelDemo = [
-            1.21, 1.23, 1.26, 1.31, 1.38, 1.46, 1.55, 1.65, 1.75, 1.87, 1.99, 2.11, 2.24, 2.36, 2.48, 2.60, 2.71, 2.82, 2.91, 2.99, 3.06, 3.12, 3.16, 3.19, 3.20, 3.19, 3.17, 3.13, 3.08, 3.01, 2.93, 2.84, 2.74, 2.63, 2.52, 2.39, 2.27, 2.15, 2.02, 1.90, 1.78, 1.67, 1.57, 1.48, 1.40, 1.33, 1.28, 1.24, 1.21, 1.20, 1.21, 1.23, 1.26, 1.31, 1.38, 1.46, 1.55, 1.65, 1.75, 1.87, 1.99, 2.11, 2.24, 2.36, 2.48, 2.60, 2.71, 2.82, 2.91, 2.99, 3.06, 3.12, 3.18, 3.22, 3.26, 3.30, 3.34, 3.38, 3.42, 3.46, 3.50, 4, 4.25, 4.5, 4.75, 5, 5.25, 5.50, 5.75, 6.00, 6.25, 6.50, 6.75, 7.00, 7.25, 7.50, 7.75, 8.00, 8.25, 8.50, 8.75, 9.00, 9.25, 9.50, 9.75, 10.00, 10.25, 10.50, 10.75, 11.00, 11.25, 11.50, 11.75, 12.00, 12.25, 12.50, 12.75, 13.00, 13.25, 13.50, 13.75, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
+            1.21, 1.23, 1.26, 1.31, 1.38, 1.46, 1.55, 1.65, 1.75, 1.87,
+            1.99, 2.11, 2.24, 2.36, 2.48, 2.60, 2.71, 2.82, 2.91, 2.99,
+            3.06, 3.12, 3.16, 3.19, 3.20,
+            3.19, 3.17, 3.13, 3.08, 3.01, 2.93, 2.84, 2.74, 2.63, 2.52,
+            2.39, 2.27, 2.15, 2.02, 1.90, 1.78, 1.67, 1.57, 1.48, 1.40,
+            1.33, 1.28, 1.24, 1.21, 1.20,
+            1.21, 1.23, 1.26, 1.31, 1.38, 1.46, 1.55, 1.65, 1.75, 1.87,
+            1.99, 2.11, 2.24, 2.36, 2.48, 2.60, 2.71, 2.82, 2.91, 2.99,
+            3.06, 3.12, 3.18, 3.22, 3.26, 3.30, 3.34, 3.38, 3.42, 3.46,
+            3.50, 4, 4.25, 4.5, 4.75, 5, 5.25, 5.50, 5.75, 6.00, 6.25,
+            6.50, 6.75, 7.00, 7.25, 7.50, 7.7, 7.9, 8.1, 8.3, 8.50, 8.7, 8.9,
+            9.00, 9.2, 9.35, 9.40, 9.55, 9.7, 9.85,
+            10.00, 10.1, 10.2, 10.3, 10.4, 10.50, 10.6, 10.7, 10.8, 10.9,
+            11.00, 11.1, 11.2, 11.3, 11.4, 11.50, 11.6, 11.7, 11.58, 11.9,
+            12.00, 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8, 12.9,
+            13.00, 13.1, 13.2, 13.3, 13.4, 13.5, 13.6, 13.7, 13.8, 13.9,
+            14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
+            14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
+            14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
+            14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
+            14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
         ];
 
 
-        let countGameIntervals = -1;
+        let countGameIntervals = 0;
         const maxGameLength = 200;
-        let globalStormwaterStep = -1;
+        let globalStormwaterStep;
 
         let southbankStormwaterAnimation = setInterval(() => {
-            countGameIntervals += 1;
             console.log("gameInterval is ", countGameIntervals);
-            globalStormwaterStep = (globalStormwaterStep + 1) % southbankWaterLevelDemo.length;
+            globalStormwaterStep = (countGameIntervals) % southbankWaterLevelDemo.length;
 
-            map.setPaintProperty("Show stormwater sensor locations", "circle-radius", (southbankWaterLevelDemo[globalStormwaterStep] * 2 + 15))
+            map.setPaintProperty("Show southbank sensor location", "circle-radius", (southbankWaterLevelDemo[globalStormwaterStep] * 2 + 8))
 
             // southbankWaterLevelDemo[globalStormwaterStep] = southbankWaterLevelDemo[globalStormwaterStep] + 0.6;
 
-            if (countGameIntervals == 80) {
-                map.setPaintProperty("Show stormwater sensor locations", "circle-color", "#edea3b")
-            };
             if (countGameIntervals == 100) {
-                map.setPaintProperty("Show stormwater sensor locations", "circle-color", "#eb962f")
+                map.setPaintProperty("Show southbank sensor location", "circle-color", "#edea3b");
+                map.setLayoutProperty("Show southbank alert icon", 'visibility', 'visible');
             };
-            if (countGameIntervals == 120) {
-                map.setPaintProperty("Show stormwater sensor locations", "circle-color", "#eb2f2f")
+            if (countGameIntervals == 150) {
+                map.setPaintProperty("Show southbank sensor location", "circle-color", "#eb962f");
+            };
+            if (countGameIntervals == 190) {
+                map.setPaintProperty("Show southbank sensor location", "circle-color", "#eb2f2f");
+                map.setLayoutProperty("Show southbank alert icon", 'icon-image', 'brokenIcon');
             };
 
             if (countGameIntervals == maxGameLength) {
                 clearInterval(southbankStormwaterAnimation);
             };
+            countGameIntervals += 1;
 
         }, 150);
     };
     statesList.push(loadSouthbankStormwaterDataStory);
     stateNamesList.push("loadSouthbankStormwaterDataStory");
-
-
-    // 8 - STORMWATER SENSOR GAME DEMO
-    function loadStormwaterGameDemoStory() {
-        layersList = ["Show stormwater sensor locations"];
-        map.addLayer({
-            id: "Show stormwater sensor locations",
-            source: "stormwater sensors",
-            "source-layer": "CDX_CityDNA_stormwaterSensors",
-            type: "circle",
-            paint: {
-                "circle-color": "#FFffFF",
-                "circle-radius": 20,
-                "circle-opacity": 1,
-            },
-        });
-    }
-    statesList.push(loadStormwaterGameDemoStory);
-    stateNamesList.push("loadStormwaterGameDemoStory");
-
 
 
 
@@ -625,12 +840,12 @@ map.on("load", function () {
         "SW6",
         "SW7",
         "SW8",
-        "SW9",
-        "SW10",
-        "SW11",
-        "SW12",
-        "SW13",
-        "SW14",
+        // "SW9",
+        // "SW10",
+        // "SW11",
+        // "SW12",
+        // "SW13",
+        // "SW14",
     ];
 
 
@@ -699,7 +914,86 @@ map.on("load", function () {
         "11 PM",
     ];
 
-    // 6 - STORMWATER GAME
+    const spreadsheetUrl = 'https://script.google.com/macros/s/AKfycbw4lkVzzZcRT6Cd_M7UQKKS4OfF2NPXiKPUuIMlfNlkiVKIluuO7NBYCtFIzEofRvM6QQ/exec'
+        + '?origin=table'
+
+    const qrCodeUrls = [
+        'https://live.staticflickr.com/65535/54162401719_982b54ba7c.jpg', //QR1
+        'https://live.staticflickr.com/65535/54162362528_2b69234efc.jpg', //QR2
+        'https://live.staticflickr.com/65535/54162544515_28c52a6ebc.jpg', //QR3
+        'https://live.staticflickr.com/65535/54162088081_55bc6fcb90.jpg', //QR4
+        'https://live.staticflickr.com/65535/54162362393_ed2d60de2c.jpg', //QR5
+        'https://live.staticflickr.com/65535/54162544415_ce05e47298.jpg', //QR6
+        'https://live.staticflickr.com/65535/54162401634_2a5ee8884f.jpg', //QR7
+        'https://live.staticflickr.com/65535/54162088031_ae10853f76.jpg', //QR8
+        // 'https://live.staticflickr.com/65535/54162544395_4e4d9fc4d0.jpg',
+        // 'https://live.staticflickr.com/65535/54162088016_e09f4ff005.jpg',
+        // 'https://live.staticflickr.com/65535/54161215572_df444fb9f1.jpg'
+    ]
+
+
+    // 8 - STORMWATER SENSOR GAME DEMO
+    function loadStormwaterGameDemoStory() {
+        layersList = ["Show stormwater game sensor locations", 'Show drain id numbers', "Show game sensor location rings"];
+        map.addLayer({
+            id: "Show stormwater game sensor locations",
+            source: "stormwater game",
+            "source-layer": "CDX_CityDNA_game_stormwaterSenso",
+            type: "circle",
+            paint: {
+                "circle-color": "#9cdef0",
+                "circle-radius": 18,
+                "circle-opacity": 1,
+            },
+        });
+
+        map.addLayer({
+            id: 'Show drain id numbers',
+            source: "stormwater game",
+            "source-layer": "CDX_CityDNA_game_stormwaterSenso",
+            type: "symbol",
+            paint: {
+                'text-color': '#000000',
+            },
+            layout: {
+                "text-field": [
+                    'format',
+                    ['upcase', ['slice', ['get', 'name'], 2]],
+                    { 'font-scale': 1.8 }
+                ],
+                'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+
+                // "icon-offset": qrOffsetList[index], //right, down
+                // This layer is not visible initially.
+                // It will be updated to 'visible' by blockedDrain()
+                // 'visibility': 'none',
+                'visibility': 'visible',
+            },
+        });
+
+        map.addLayer({
+            id: "Show game sensor location rings",
+            source: "stormwater game",
+            "source-layer": "CDX_CityDNA_game_stormwaterSenso",
+            type: "circle",
+            paint: {
+                "circle-color": 'rgba(0,0,0,0)',
+                "circle-stroke-color": "#ffffff",
+                "circle-stroke-width": 2,
+                "circle-radius": 24,
+                "circle-opacity": 1,
+            },
+        });
+
+    }
+    statesList.push(loadStormwaterGameDemoStory);
+    stateNamesList.push("loadStormwaterGameDemoStory");
+
+
+
+
+
+    // 9 - STORMWATER GAME
     // Add the layers to the map using the usual CityDNA method
 
     function loadStormwaterGame() {
@@ -714,25 +1008,25 @@ map.on("load", function () {
             layersSubListSymbols.push(drainIdArray[index] + "symbol");
         };
 
-        let layersSubListQRSymbols = [];
+        let layersSubListIcons = [];
         for (const index in drainIdArray) {
-            layersSubListQRSymbols.push(drainIdArray[index] + 'symbolQR');
+            layersSubListIcons.push(drainIdArray[index] + 'Icon');
         };
 
         // We need a layersList array so that Presentation Mode can turn all the layers off at the end of the game.
-        layersList = layersSubListCircles.concat(layersSubListSymbols).concat(layersSubListQRSymbols);
+        layersList = layersSubListCircles.concat(layersSubListSymbols).concat(layersSubListIcons);
 
-        // Add a new CIRCLE layer for each drain.
-        // Note that this adds 14 drains at each location, but renders each drain only once (one per layer).
-        // We will use these layers to symbolise the changing waterLevel at each drain.
+        // Add 8 new CIRCLE layers, one for each drain.
+        // Note that this adds a new drains at every location, but renders each drain only once (one per layer).
+        // We will use this layer to place a red circle over a broken drain.
         for (const index in layersSubListCircles) {
             map.addLayer({
                 id: layersSubListCircles[index],
-                source: "stormwater sensors",
-                "source-layer": "CDX_CityDNA_stormwaterSensors",
+                source: "stormwater game",
+                "source-layer": "CDX_CityDNA_game_stormwaterSenso",
                 type: "circle",
                 paint: {
-                    "circle-color": "#3277a8",
+                    "circle-color": "#9cdef0",
                     // 'circle-radius': 3,
                     "circle-radius":
                         swDrainLive[index].waterLevel[0] * amplitudeMultiplier +
@@ -753,51 +1047,44 @@ map.on("load", function () {
         }
 
         // Add a new SYMBOL layer for each drain.
-        // This will carry the QR codes and the 'splat' images.
+        // This will carry the alert symbols and the 'broken' images.
 
-        //CODE TO LOAD QR CODE IMAGES - I CAN'T GET THIS TO WORK BECAUSE OF BLOODY CORS ERRORS SO I'M USING A CIRCLE LAYER INSTEAD
-        // ALSO CODE IN <head> TO PRELOAD IMAGES, AND A MAP.ADDSOURCE() WHERE I ADD THE QR CODE
-        // NOTE THAT EACH WILL NEED A DIFFERENT QR CODE, SO I'LL NEED TO ADD A LOOP SO WE ARE PULLING THE CORRECT FILE IN ICON-IMAGE
-        // map.loadImage("https://github.com/helenwalpole/CityDNA-stormwater/blob/main/testQR.svg", (error, image) => {
-        //     if (error) throw error;
-        //     map.addImage("testQR1", image);
 
-        //     for (const index in layersSubListQRSymbols) {
-        //         map.addLayer({
-        //             id: layersSubListQRSymbols[index],
-        //             source: "stormwater sensors",
-        //             "source-layer": "CDX_CityDNA_stormwaterSensors",
-        //             type: "symbol",
-        //             layout: {
-        //                 "icon-image": "testQR1",
-        //                 "icon-size": 12,
-        //                 "icon-anchor": 'center',
-        //                 // This layer is not visible initially.
-        //                 // It will be updated to 'visible' by blockedDrain()
-        //                 // 'visibility': 'none',
-        //                 'visibility': 'visible',
-        //             },
-        //             filter: [
-        //                 "match",
-        //                 ["get", "name"],
-        //                 layersSubListCircles[index], // use SubListCircles list as it matches the feature names in the source layer
-        //                 true,
-        //                 false,
-        //             ],
-        //         });
-        //     }
-        // });
+        for (const index in layersSubListIcons) {
+            map.addLayer({
+                id: layersSubListIcons[index],
+                source: "stormwater game QRs", //this layer offsets the icons to clear/flat space on the 3d model
+                "source-layer": "CDX_CityDNA_game_stormwaterSenso",
+                type: "symbol",
+                layout: {
+                    "icon-image": 'alertIcon',
+                    "icon-size": 0.5,
+                    // This layer is not visible initially.
+                    // It will be updated to 'visible' by blockedDrain()
+                    // 'visibility': 'none',
+                    'visibility': 'none',
+                },
+                filter: [
+                    "match",
+                    ["get", "name"],
+                    layersSubListCircles[index], // use SubListCircles list as it matches the feature names in the source layer
+                    true,
+                    false,
+                ],
+            });
+        };
+
 
         for (const index in layersSubListSymbols) {
             map.addLayer({
                 id: layersSubListSymbols[index],
-                source: "stormwater sensors",
-                "source-layer": "CDX_CityDNA_stormwaterSensors",
+                source: "stormwater game",
+                "source-layer": "CDX_CityDNA_game_stormwaterSenso",
                 type: "circle",
                 paint: {
                     "circle-stroke-color": "#FFFFFF",
                     "circle-radius": 50,
-                    "circle-stroke-width": 1,
+                    "circle-stroke-width": 2,
                     "circle-color": "rgba(0,0,0,0)",
                 },
                 layout: {
@@ -818,7 +1105,7 @@ map.on("load", function () {
         // Add a trigger to simulate the user clicking on the 'unblock drain' button.
         // Set the SYMBOLS layer to react to a click.
         // I'm using the symbols layer so that you can only interact with a blocked drain,
-        // which simulates the game scenario (only blocked drains have QR codes).
+        // which simulates the game scenario (only blocked drains have alert icons).
         for (const index in layersSubListSymbols) {
             map.on("click", layersSubListSymbols[index], (e) => {
                 // use URL query ID to determine blockID
@@ -845,7 +1132,10 @@ map.on("load", function () {
     function startGame() {
         console.log("Game started");
         // restoreBackgroundLayer(); //not working?
-
+        // let responseText = '';
+        let firstPosition = 0;
+        let timeElapsed = ''
+        let secondPosition = 0;
         let countGameIntervals = -1;
 
         let gameAnimation = setInterval(() => {
@@ -857,56 +1147,110 @@ map.on("load", function () {
                 endGame(gameAnimation); // note that we still finish this pass over the below code before ending
             }
 
+
+            // CHECK DATA FROM GOOGLE SHEET //
+
+            //  Once per second, check the spreadsheet for any drains cleared by players, then reset the spreadsheet
+            if (countGameIntervals % ((animationRate / gameLength) * 2) == 0) { // eg, every 2 seconds
+                fetch(spreadsheetUrl)
+                    .then((response) => {
+                        response = response.text();
+                        // responseText = responseText.toString();
+                        // console.log('responseText length:', responseText.length)
+                        return response;
+                    })
+                    .then((data) => {
+                        console.log(data)
+                        data = data.toString();
+                        // check returned text for 'userCleared' status
+
+                        firstPosition = data.indexOf('userCleared')
+                        if (firstPosition != -1) {
+                            firstPosition = firstPosition - 4 //count back to the start of drainID 'SWx'
+                            let userDrainId = data.substr(firstPosition, 3);
+                            console.log('userDrainId:', userDrainId)
+
+                            firstPosition = firstPosition + 14 //count forward to time value
+                            timeElapsed = data.charAt(firstPosition);
+                            console.log('time elapsed is', timeElapsed)
+
+                            //update the data at swDrainLive[drainIdIndex].status
+                            clearDrain(userDrainId);
+
+
+                            // secondPosition = data.indexOf('userCleared', firstPosition+1)
+                            // if (secondPosition != -1) {
+                            //     secondPosition = secondPosition - 2 //count back to number of drainID
+                            //     drainIdIndex = Number(data.charAt(secondPosition)) - 1;
+
+                            //     secondPosition = secondPosition + 14 //count forward to time value
+                            //     timeElapsed = data.charAt(secondPosition);
+
+                            //     //update the data
+                            // }
+                        }
+                    })
+                    .catch(error => console.error('Error with fetch():', error));
+                console.log('ping-spreadsheet')
+
+
+            }
+
+            // ALTERNATIVE METHOD
+            // const googleAPIKey = 'AIzaSyBzJwy_PUnw9-uunEXmuEn6GTrOXGH5KRU'; // Replace with your API key
+            // const spreadsheetId = '1Zx3CyyEMYr20QdV1hA6t2mKijNoTWeWZ9WmDZwKunEw'; // Replace with your spreadsheet ID
+            // const sheetName = 'sensorStatus!A1:C14'; // Replace with your sheet name
+            // const sheetSource = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${googleAPIKey}`
+
+            // fetch(sheetSource)
+            //     .then(response => response.json())
+            //     .then(data => console.log(data.values))
+            //     .catch(error => console.error('Error:', error));
+
+
+
             // Update legend to show day/time for this interval
             // TO DO: create game countdown timer
             // TO DO, LOW PRIORITY: also calculate day / date etc from globalStep
             let clockDisplayReadout = clockDisplay[globalStep % clockDisplay.length];
-            document.getElementById(
-                "legend"
-            ).innerHTML = `<br> Stormwater drain sensors<br><br> 27 November 2030 ${clockDisplayReadout}`;
+            document.getElementById("legend").innerHTML = `<br> Stormwater drain sensors<br><br> 27 November 2030 ${clockDisplayReadout}`;
 
             // Are any drains due to block this interval?
             // Manually set the blockage schedule
-            if ((globalStep - 115) % 180 === 0) {
-                //every 12 intervals, starting at int 4
+
+            if ((countGameIntervals - 50) % 65 === 0) {
+                //every 35 sec
                 blockDrain("SW1");
-            }
-            if ((globalStep - 224) % 170 === 0) {
-                //every 14 intervals, starting at int 7
-                blockDrain("SW8");
-            }
-            if ((globalStep - 185) % 160 === 0) {
-                //every 14 intervals, starting at int 7
-                blockDrain("SW10");
-            }
-            if ((globalStep - 146) % 150 === 0) {
-                //every 14 intervals, starting at int 7
-                blockDrain("SW2");
-            }
-            if ((globalStep - 155) % 142 === 0) {
-                //every 14 intervals, starting at int 7
-                blockDrain("SW5");
-            }
-            if ((globalStep - 170) % 138 === 0) {
-                //every 14 intervals, starting at int 7
-                blockDrain("SW6");
-            }
-            if ((globalStep - 181) % 183 === 0) {
-                //every 14 intervals, starting at int 7
+            };
+            if ((countGameIntervals - 30) % 86 === 0) {
+                //every 35 sec
                 blockDrain("SW7");
-            }
-            if ((globalStep - 193) % 149 === 0) {
-                //every 14 intervals, starting at int 7
-                blockDrain("SW3");
-            }
-            if ((globalStep - 108) % 198 === 0) {
-                //every 14 intervals, starting at int 7
-                blockDrain("SW9");
-            }
-            if ((globalStep - 130) % 144 === 0) {
-                //every 14 intervals, starting at int 7
+            };
+            if ((countGameIntervals - 15) % 77 === 0) {
+                //every 35 sec
+                blockDrain("SW2");
+            };
+            if ((countGameIntervals + 1) % 108 === 0) {
+                //every 35 sec
                 blockDrain("SW4");
-            }
+            };
+            if ((countGameIntervals + 1) % 59 === 0) {
+                //every 35 sec
+                blockDrain("SW5");
+            };
+            if ((countGameIntervals + 1) % 70 === 0) {
+                //every 35 sec
+                blockDrain("SW6");
+            };
+            if ((countGameIntervals + 1) % 81 === 0) {
+                //every 35 sec
+                blockDrain("SW3");
+            };
+            if ((countGameIntervals + 1) % 92 === 0) {
+                //every 35 sec
+                blockDrain("SW8");
+            };
+
 
             // PREPARE THE LIVE DATA
             // Check the status of all the drains and ensure the values for their
@@ -952,7 +1296,7 @@ map.on("load", function () {
                 // check that radius against the alert thresholds
                 let thisCircleColor = "";
                 if (thisCircleRadius <= alertThresholdBlue[index]) {
-                    thisCircleColor = "#3277a8"; //blue
+                    thisCircleColor = "#9cdef0"; //blue prev #3277a8
                 } else if (thisCircleRadius <= alertThresholdYellow[index]) {
                     thisCircleColor = "#edea3b"; //yellow
                 } else if (thisCircleRadius <= alertThresholdOrange[index]) {
@@ -1027,8 +1371,8 @@ map.on("load", function () {
             }
 
             // make the QR code for this drain visible.
-            const swDrainSymbolQRLayerID = drainID + 'symbolQR';
-            map.setLayoutProperty(swDrainSymbolQRLayerID, 'visibility', 'visible');
+            const swDrainSymbolIconLayerID = drainID + 'Icon';
+            map.setLayoutProperty(swDrainSymbolIconLayerID, 'visibility', 'visible');
             // until I've got the CORS issue resolved, I'm using a ring around the drain
             const swDrainSymbolLayerID = drainID + "symbol";
             map.setLayoutProperty(swDrainSymbolLayerID, "visibility", "visible");
@@ -1046,9 +1390,11 @@ map.on("load", function () {
             JSON.stringify(swDrainSource[drainIdIndex])
         );
 
-        // remove the QR code (white circle) from SYMBOL layer
+        // remove the alert symbol and white circles from SYMBOL layer
         const swDrainSymbolLayerID = drainID + "symbol";
         map.setLayoutProperty(swDrainSymbolLayerID, "visibility", "none");
+        const swDrainSymbolIconLayerID = drainID + 'Icon';
+        map.setLayoutProperty(swDrainSymbolIconLayerID, "visibility", "none");
 
         console.log(
             `Drain ${drainID} is CLEAR: ${swDrainLive[drainIdIndex].status}`
@@ -1067,11 +1413,11 @@ map.on("load", function () {
 
         // add splat animation on SYMBOL layer (remove QR code)
         const swDrainSymbolLayerID = drainID + "symbol";
-        map.setPaintProperty(
-            swDrainSymbolLayerID,
-            "circle-color",
-            "rgba(252, 3, 3, 1)"
-        );
+        map.setPaintProperty(swDrainSymbolLayerID, "circle-color", "#9cdef0");
+
+        // Update alert Icon to broken icon
+        const swDrainSymbolIconLayerID = drainID + 'Icon';
+        map.setLayoutProperty(swDrainSymbolIconLayerID, "icon-image", "brokenIcon");
 
         // Make the related CIRCLE layer for this drain invisible (the circle-radius will keep updating, but this doesn't matter)
         // map.setLayoutProperty(drainID, 'visibility', 'none');
@@ -1081,18 +1427,8 @@ map.on("load", function () {
     function endGame(gameAnimation) {
         console.log("Game over");
         clearInterval(gameAnimation);
-        document.getElementById("legend").innerHTML =
-            "GAME OVER! Thanks for playing";
-        // map.setLayoutProperty('dimmableOverlayLayer', 'visibility', 'visible');
-        // dimBackgroundLayer(); 
-
+        document.getElementById("legend").innerHTML = "GAME OVER! Thanks for playing";
         // reset symbols for drains that have not overflowed
-
-        // remove any visible QR codes and retain all splats
-        // loop through SYMBOL layer and check value of symbol url
-        // if qr code url, set visibility to 'none'.
-        // if splat url, pass over.
-
         // PLAY SOME KIND OF ANIMATION TO INDICATE GAME OVER
     }
 
