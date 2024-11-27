@@ -711,7 +711,7 @@ map.on("load", function () {
             type: "circle",
             paint: {
                 "circle-color": "#9cdef0",
-                "circle-radius": 18,
+                "circle-radius": 8,
                 "circle-opacity": 1,
             },
             filter: [
