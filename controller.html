@@ -11,6 +11,11 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+        rel="stylesheet">
+
 
     <!-- Add mapbox gl -->
     <script src='https://api.mapbox.com/mapbox-gl-js/v3.1.2/mapbox-gl.js'></script>
@@ -21,7 +26,7 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: white;
+            background-color: rgb(224, 224, 224);
         }
 
         p {
@@ -32,17 +37,18 @@
 
         h2 {
             font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-weight: 600;
-            text-align: center;
-            font-size: 16pt;
+            font-weight: 800;
+            /* text-align: center; */
+            font-size: 30pt;
             color: black;
+            margin: 0;
         }
 
         h3 {
             font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             font-weight: 600;
-            text-align: left;
-            font-size: 12pt;
+            /* text-align: left; */
+            font-size: 18pt;
             color: black;
             padding: 0;
             margin: 0;
@@ -50,19 +56,25 @@
 
         h6 {
             font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-weight: 300;
-            text-align: left;
-            font-size: 8pt;
+            font-weight: 600;
+            /* text-align: center; */
+            font-size: 14pt;
             color: black;
+            margin: 5px;
+        }
+
+        .textBox {
+            text-align: center;
         }
 
         /* css goes here */
-        #title {
+        #titleContainer {
             position: relative;
             display: block;
             width: 80%;
             margin: 0 auto;
-            margin-top: 30px;
+            padding-top: 1vh;
+            padding-bottom: 15px;
             /* border: solid 2px red; */
             text-align: center;
         }
@@ -79,26 +91,21 @@
         .graphicsHeightBounds {
             position: relative;
             display: block;
-            min-height: 200px;
-            margin-top: 50px;
+            max-height: 20vh;
+            max-width: 90vw;
+            margin: 0 auto;
+            margin-top: 5vh;
+            margin-bottom: 5vh;
             /* border: solid 2px mediumseagreen; */
         }
 
-        .graphicsWidthBounds {
-            position: relative;
-            display: block;
-            width: 80%;
-            height: inherit;
-            margin: 0 auto;
-            /* border: solid 2px orange; */
-        }
-
         .graphicsBox {
-            position: relative;
+            /* position: relative; */
             display: block;
-            width: inherit;
-            height: inherit;
-            margin: 0 auto;
+            /* width: inherit; */
+            max-height: inherit;
+            max-width: inherit;
+            /* margin: 0 auto; */
             /* margin-top: 50px; */
             /* background-color: green; */
             /* border: solid 1px black; */
@@ -110,20 +117,28 @@
 
         img {
             position: relative;
-            display: block;
-            margin: 0 auto;
-            max-width: 100%;
-            max-height: 100%;
+            /* display: block; */
+            max-height: inherit;
+            max-width: inherit;
+            /* margin: 0 auto; */
+            object-fit: contain;
+            /* max-width: 80%;
+            max-height: 80%; */
             /* vertical-align: top; */
         }
 
         .countdownTimerBox {
             position: relative;
             display: block;
-            height: 30px;
-            width: 100px;
+            /* height: 30px; */
+            width: 80vw;
+            max-width: 200px;
             margin: 0 auto;
-            margin-top: 50px;
+            padding: 5px;
+            background-color: #9ccdf0;
+            /* margin-top: 50px; */
+            border: solid #87c5f1 2px;
+            border-radius: 5px;
             text-align: center;
         }
 
@@ -141,42 +156,46 @@
 
         .sliderInnerBox {
             position: relative;
-            /* display: block; */
-            height: inherit;
+            display: block;
+            height: 50%;
             width: 0%;
-            float: left;
-            background-color: #3277a8;
+            /* float: left; */
+            background-color: #56a7e0;
             padding-left: 10px;
+        }
+
+        #sliderInnerBottom {
+            background-color: #3277a8;
         }
 
         .buttonBox {
             position: relative;
-            margin: 0 auto;
+            /* display: block; */
+            /* margin: 0 auto; */
             /* min-height: 100px; */
             padding-bottom: 50px;
             /* width: 200px; */
             /* border: solid 2px greenyellow; */
+            margin-top: 20px;
 
         }
 
         .button {
-            /* position: inherit; */
             position: relative;
             display: block;
             margin: 0 auto;
-            margin-top: 20px;
-            width: 80%;
+            width: 100px;
         }
 
         .button a {
-            color: white;
+            color: #ffbf70;
             font-family: 'Montserrat', 'Roboto', 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-            font-weight: 600;
+            font-weight: 900;
             /* font-size: 36px; */
             text-align: center;
             text-decoration: none;
             background-color: #FFA12B;
-            display: block;
+            display: inherit;
             position: relative;
             padding: 20px 40px;
 
@@ -188,9 +207,9 @@
             -moz-box-shadow: inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
             box-shadow: inset 0 1px 0 #FFE5C4, 0 10px 0 #915100;
 
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
+            -webkit-border-radius: 30px;
+            -moz-border-radius: 30px;
+            border-radius: 30px;
         }
 
         .button a:active {
@@ -217,9 +236,9 @@
             border-radius: 5px;
         }
 
-        .gameOverSuccessBox {
+        .gameOverBox {
             position: relative;
-            display: none;
+            /* visibility: hidden; */
             margin: 0 auto;
             margin-top: 20px;
             width: 50%;
@@ -227,128 +246,367 @@
             /* background-color: peachpuff; */
             text-align: center;
         }
-
-        .gameOverFailureBox {
-            position: relative;
-            display: none;
-            margin: 0 auto;
-            margin-top: 20px;
-            width: 50%;
-            height: 50px;
-            /* background-color: darkslategrey; */
-            text-align: center;
-        }
-
-        #jsonMessage {
-            position: relative;
-            display: block;
-            width: 30%;
-            margin: 0 auto;
-        }
     </style>
 
 </head>
 
 <body>
     <div id="column" class="columnBox">
-        <div id="title" class="textBox">
-            <h2>Oh no! This stormwater drain has blocked.</h2>
-        </div>
-        <div class="graphicsHeightBounds">
-            <div class="graphicsWidthBounds">
-                <div id="animation" class="graphicsBox">
-                    <img id="icon" src="iconPump.png" alt="pumpPic">
-                </div>
+
+        <div id="titleContainer">
+            <div id="bigTitle" class="textBox">
+                <h2>Looks like rain...</h2>
+            </div>
+            <div id="subTitle" class="textBox">
+                <h6>Keep an eye on those drains!</h6>
             </div>
         </div>
 
-        <div id="countdownTimer" class="countdownTimerBox"></div>
+        <div id="graphicsHeightBounds" class="graphicsHeightBounds">
+            <div id="animation" class="graphicsBox">
+                <img id="icon" src="iconPump.png" alt="pumpPic">
+            </div>
+        </div>
+
+        <div id="countdownTimer" class="countdownTimerBox">
+            <div id="countdownTextUpper">
+                <h6>Time remaining: </h6>
+            </div>
+            <div id="countdownTextLower">
+                <h6>...waiting...</h6>
+            </div>
+        </div>
+
+        <div id="gameInstructions" class="textBox">
+            <h6>You are in charge of maintaining this stormwater drain. </h6>
+            <h6>If this drain gets clogged, you'll need to clear it out before it blocks completely!</h6>
+        </div>
 
         <div id="sliderOuter" class="sliderOuterBox">
-            <div id="sliderInner" class="sliderInnerBox"></div>
+            <div id="sliderInnerTop" class="sliderInnerBox"></div>
+            <div id="sliderInnerBottom" class="sliderInnerBox"></div>
+
         </div>
-        <div class="buttonBox">
-            <div id="gameButton" class="button">
-                <a href="#">Pump that drain!</a>
+
+
+        <div div id=buttonContainer class="buttonBox">
+            <div id="gameButton" class="button" >
+                <a href="#">.&nbsp;.&nbsp;.</a>
             </div>
-            <div id="gameOverSuccess" class="gameOverSuccessBox">
+            <div id="buttonInstructions" class="gameOverBox">
+                <h6>Pump that drain!</h6>
             </div>
-            <div id="gameOverFailure" class="gameOverFailureBox">
-            </div>
+
+            <div id="gameOverText" class="gameOverBox"></div>
+            <!-- <div id="gameOverFailure" class="gameOverBox"></div> -->
         </div>
-        <div id="jsonMessage"></div>
+        <!-- <button onclick="updateSheet()">click me!</button> -->
+
     </div>
 
     <!-- load City DNA javascript after html has loaded in -->
     <script>
-        // Use URLquery data to populate the text in the title box
-        // const drainID = window.location.search
-        const drainID = 'SW1';
+        // Use URLquery param to identify which drain we are dealing with
+        let drainID = new URLSearchParams(window.location.search).get('drainID')
+        if (drainID == '') { drainID = 'SW1' }; //fallback
+        let drainIDIndex = Number(drainID.slice(2) - 1);
+
         let gameTimeElapsed = 0;
+        let countdown = 0;
+        let timeBlockageActivated = 0;
+        let timeBlockageCleared = 0;
+
+        let awaitTimeElapsed = 0;
+        const awaitTimeInterval = 5000; // how often we check the google sheet while awaiting the game, (5 sec)
+
         let pumpCount = 0;
-        const gameTimeLimit = 7;
+        let countdownTimerInterval;
+        let gameTimer;
+        let drainIsBlocked = false
 
-        // Display total game time on the countdown timer
-        document.getElementById("countdownTimer").innerHTML = `<h3>${gameTimeLimit} seconds</h3>`;
+        const gameTimeLimit = 10; // how much time for a player to pump out a drain, in seconds
+        const googleAPIKey = 'AIzaSyBzJwy_PUnw9-uunEXmuEn6GTrOXGH5KRU'; // Replace with your API key
+        const spreadsheetId = '1Zx3CyyEMYr20QdV1hA6t2mKijNoTWeWZ9WmDZwKunEw'; // Replace with your spreadsheet ID
+        const sheetName = 'sensorStatus!A1:C14'; // Replace with your sheet name
+        const sheetSource = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${sheetName}?key=${googleAPIKey}`
 
+
+        // LET'S GO
         // Enable the button for gameplay
         document.getElementById("gameButton").addEventListener("click", pumpDrain);
 
-        // Start a game timer to determine success/failure, and start counting down the clock
-        let gameTimer = setInterval(() => {
-            gameTimeElapsed += 1;
-            const countdown = gameTimeLimit - gameTimeElapsed;
-            console.log(gameTimeElapsed);
-            document.getElementById("countdownTimer").innerHTML = `<h3>${countdown} seconds</h3>`;
-            if (gameTimeElapsed == gameTimeLimit) {
-                endGame(drainID, "failure");
-                clearInterval(gameTimer);
-            };
+        awaitGame()
 
-        }, 1000); // updates every 1 second
+        function awaitGame() {
+            //////////////////////////////////
+            // SET UP UI FOR HOLDING SCREEN //
+            //////////////////////////////////
+
+            document.getElementById("bigTitle").innerHTML = '<h2>WELCOME!</h2>';
+            document.getElementById("subTitle").innerHTML = "<h6>Help us keep our stormwater drains flowing!</h6>";
+            document.getElementById('icon').src = "iconRain.png"; //rain image
+            document.getElementById('countdownTimer').style.visibility = 'hidden';
+            document.getElementById('sliderOuter').style.visibility = 'hidden';
+            document.getElementById('buttonContainer').style.visibility = 'hidden';
+            // document.getElementById("gameOverText").innerHTML = "<h6>The rain will start soon...</h6>";
+
+
+
+            let awaitGameSpreadsheetPoll = setInterval(() => {
+
+                // Check spreadsheet for 'ACTIVE' signal
+                fetch(sheetSource)
+                    .then(response => response.json())
+                    .then((data) => {
+                        console.log(data.values);
+
+                        // find the right cell in data.values
+                        if (data.values[8] == 'ACTIVE') {
+                            // if it says 'active', then startGame() and clearInterval
+                            clearInterval(awaitGameSpreadsheetPoll)
+                            startGame();
+                        };
+                    })
+                    .catch(error => console.error('Error:', error));
+
+                // stop awaiting the game after 5 minutes
+                if (awaitTimeElapsed > 300) {
+                    clearInterval(awaitGameSpreadsheetPoll);
+                }
+
+                awaitTimeElapsed += 1;
+            }, awaitTimeInterval);
+        };
+
+
+
+        function startGame() {
+
+            ////////////////////
+            // Set up game UI //
+            ////////////////////
+
+            document.getElementById("bigTitle").innerHTML = '<h2>STAY ALERT!</h2>';
+            document.getElementById("subTitle").innerHTML = "<h6>The rain is coming!</h6>";
+            document.getElementById('countdownTimer').style.visibility = 'visible';
+            document.getElementById('sliderOuter').style.visibility = 'visible';
+            document.getElementById("gameInstructions").style.display = 'none';
+            document.getElementById('buttonContainer').style.visibility = 'hidden';
+
+
+
+            // Start a game timer on a 1-second interval
+            gameTimer = setInterval(() => {
+
+                // Poll the spreadsheet every interval (1 second) checking this drain's status and overall game status ('INACTIVE')
+                fetch(sheetSource)
+                    .then(response => response.json())
+                    .then((data) => {
+                        console.log(data.values);
+                        console.log(data.values[drainIDIndex][1]);
+                        // Check if drain has been blocked by the main game table
+                        if (data.values[drainIDIndex][1] == 'blocked') {
+                            // we only want to pump the drain the first time we notice this blockage. 
+                            if (drainIsBlocked == false) {
+                                console.log('drainIsBlocked should be false', drainIsBlocked);
+                                drainIsBlocked = true; // update this so that we don't keep restarting blockedDrain()
+                                console.log('drainIsBlocked should be true', drainIsBlocked);
+                                blockedDrain(gameTimeElapsed, data.values[drainIDIndex][2]); // pass the controller's current game time and the table's current game time to blockedDrain()
+                            }
+                        };
+                        // Check if game over
+                        if (data.values[8] == 'INACTIVE') {
+                            clearInterval(gameTimer)
+                            endGame();
+                        };
+                    })
+                    .catch(error => console.error('Error:', error));
+
+                gameTimeElapsed += 1;
+                console.log(gameTimeElapsed);
+
+                // failsafe for if the connection to the spreadsheet fails, end the cycle after 3 minutes. 
+                if (gameTimeElapsed > 180) {
+                    clearInterval(gameTimer);
+                    endGame();
+                }
+
+            }, 1000); // updates every 1 second
+
+        }
+
+
+        function blockedDrain(_localStartTime, _tableStartTime) {
+            console.log(`BlockedDrain(${_localStartTime}, ${_tableStartTime})`)
+
+            ///UP TO HERE - INTEGRATE THESE PARAMS SO THAT WE CAN TEST IF WE ARE IN TIME
+            const localStartTime = _localStartTime
+            const tableStartTime = _tableStartTime
+
+            let blockedDrainInterval = 0
+
+
+            // SET UP GAME UI TO ENABLE PUMP //
+
+            document.getElementById("bigTitle").innerHTML = '<h2>QUICK!</h2>';
+            document.getElementById("subTitle").innerHTML = "<h6>This drain is blocked!</h6>";
+            document.getElementById('icon').src = "iconAlert.png"; //rain image
+
+            document.getElementById('countdownTimer').style.visibility = 'visible';
+            document.getElementById("countdownTextUpper").innerHTML = "<h6>Time remaining:</h6>"
+
+            document.getElementById('buttonContainer').style.visibility = 'visible';
+            document.getElementById("gameButton").style.visibility = "visible";
+            document.getElementById('buttonInstructions').innerHTML = "<h6>Pump that drain!</h6>"
+
+
+
+
+
+            // Reset the countdown timer each time we blockDrain() 
+            countdown = gameTimeLimit;
+
+            // Start the countdown timer onscreen, and count down each second until 0
+            countdownTimerInterval = setInterval(() => {
+                document.getElementById("countdownTextLower").innerHTML = `<h3>${countdown} seconds</h3>`;
+                if (countdown <= 0) {
+                    // if we run out of time, then the game fails
+                    endPump('failure', gameTimeElapsed);
+                    clearInterval(countdownTimerInterval);
+                };
+                countdown -= 1
+            }, 1000);
+
+
+        }
+
 
         function pumpDrain() {
+            // Update the UI)
             console.log("pumpDrain()")
+            // increment the pump counter
             pumpCount += 1;
-            // calculate percentage to render
-            const clearanceValue = 0 + (pumpCount * 5); //increments in 5% units, starting at 0
+
+            // calculate percentage to render on screen
+            const clearanceValue = 0 + (pumpCount * 10); //increments in 5% units, starting at 0
             const clearanceValueString = clearanceValue + "%";
             console.log(clearanceValueString);
             document.getElementsByClassName("sliderInnerBox")[0].style.width = clearanceValueString;
-            document.getElementById("sliderInner").innerHTML = `<h3>${clearanceValueString}<h3>`;
-            // increment the pump counter
+            document.getElementsByClassName("sliderInnerBox")[1].style.width = clearanceValueString;
 
-            // if we're at 100%, end the game
-            if (clearanceValue == 100) {
-                endGame(drainID, "success");
+            // document.getElementById("countdownTextLower").innerHTML = `<h3>${clearanceValueString}<h3>`;
+
+            // if we reach 100%, before time has run out, endPump() with success 
+            if (pumpCount == 10) {
+                endPump("success", gameTimeElapsed);
+                pumpCount = 0;
             };
-        }
-        function endGame(drainID, status) {
+        };
+
+        function endPump(status, _elapsedPumpingTime) {
+            console.log(`endPump(${status}, ${_elapsedPumpingTime})`)
+
+            //hide the button
+            document.getElementById("gameButton").style.visibility = "hidden";
+
+
             if (status == "success") { // this is what happens if you clear the drain in time
-                //hide the button
-                document.getElementById("gameButton").style.display = "none";
+                // stop the countdown clock
+                clearInterval(countdownTimerInterval);
+
                 //display the payoff
-                document.getElementById("title").innerHTML = "<h2>Nailed it! Great work.</h2>"
-                document.getElementById("gameOverSuccess").style.display = "block";
-                document.getElementById("gameOverSuccess").innerHTML = "<h2>SUCCESS!</h2>";
-                //update the graphic
-                document.getElementById("icon").src = "iconHappyWorker.png";
-                //send the JSON packet to the city DNA table to reset the drain to status 'clear'
-                document.getElementById("jsonMessage").innerHTML = `{${drainID}: success}`;
+                document.getElementById("bigTitle").innerHTML = "<h2>NICE!</h2>"
+                document.getElementById("subTitle").innerHTML = "<h6>You've cleared this drain.</h6>"
+                document.getElementById("icon").src = "iconThumb.png";
+                document.getElementsByClassName("sliderInnerBox")[0].style.width = "0%";
+                document.getElementsByClassName("sliderInnerBox")[1].style.width = "0%";
+                document.getElementById("countdownTimer").style.visibility = "hidden";
+                document.getElementById('buttonInstructions').innerHTML = "<h6>Stay alert... the rain's not gone yet!</h6>"
+                // document.getElementById("gameOverText").style.visibility = "visible";
+                // document.getElementById("gameOverText").innerHTML = "<h2>SUCCESS!</h2>";
+
+
+                //send the data to the spreadsheet to reset the drain to status 'clear'
+                updateSheet(_elapsedPumpingTime);
+
+                timeBlockageActivated = 0;
 
             } else { // This is what happens if you don't clear the drain in time
                 //hide the button
-                document.getElementById("gameButton").style.display = "none";
                 //display the payoff
-                document.getElementById("title").innerHTML = "<h2>Uh oh! This drain has flooded.</h2>"
-                document.getElementById("gameOverFailure").style.display = "block";
-                document.getElementById("gameOverFailure").innerHTML = "<h2>TOO LATE!</h2>";
-                //update the graphic
-                document.getElementById("icon").src = "iconFloatingBottle.png";
-                // no JSON packet needs to be sent - the City DNA table is set to assume failure unless it's sent a success trigger
+                document.getElementById("bigTitle").innerHTML = "<h2>OH NO!</h2>"
+                document.getElementById("subTitle").innerHTML = "<h6>This drain has flooded.</h6>"
+                document.getElementById("icon").src = "iconCross.png";
+                document.getElementById("gameButton").style.visiblity = "hidden";
+                document.getElementById("buttonInstructions").style.visibility = "visible";
+                document.getElementById("buttonInstructions").innerHTML = "<h6>Game over.</h6>";
             };
-            clearInterval(gameTimer);
+
         };
+
+        function endGame() {
+            clearInterval(gameTimer);
+            console.log('endGame()');
+
+            // upate game UI to end state//
+            document.getElementById("bigTitle").innerHTML = "<h2>ALL DONE!</h2>";
+            document.getElementById("subTitle").innerHTML = "<h6>Blue skies ahead.</h6>";
+            document.getElementById('icon').src = "iconHappyWorker.png"; //rain image
+            document.getElementById('countdownTimer').style.visibility = 'hidden';
+            document.getElementById('sliderOuter').style.visibility = 'hidden';
+            document.getElementById('buttonContainer').style.visibility = 'hidden';
+            document.getElementById('buttonInstructions').style.visibility = 'hidden';
+            document.getElementById('gameOverText').style.visibility = 'hidden';
+
+
+        };
+
+        ////////////////////////////////////////////
+        // SEND THE GAME DATA TO THE GOOGLE SHEET //
+        ////////////////////////////////////////////
+
+
+        function updateSheet(_gameEndedTimer) {
+            console.log(`updateSheet(${_gameEndedTimer})`);
+
+
+            // create the ranges in A1 notation for the drains. 
+            // As SW1 is in range A1:C1, and SW2 is A2:C2, this can be done with string operators. 
+
+            const drainIdNumeral = drainID.slice(2); //take the numerals from the 2th position to the end, ie, remove the 'SW'
+            const drainStatusRange = 'B'.concat(drainIdNumeral);
+            const blockTimeRange = 'C'.concat(drainIdNumeral);
+            const blockTime = _gameEndedTimer.toString();
+            const origin = 'controller';
+
+            // encode the data for the URI Param strings
+            const encodeddrainStatusRange = encodeURIComponent(drainStatusRange);
+            const encodedBlockTimeRange = encodeURIComponent(blockTimeRange);
+            const encodedBlockTime = encodeURIComponent(blockTime);
+            const encodedOrigin = encodeURIComponent(origin);
+
+            const spreadsheetUrl = 'https://script.google.com/macros/s/AKfycbw1rKSF0D8cz9yUxXZihxPVDVma8XZhBikq2Duqub4-AcsCxuLU9tZrgCTrYdNttzlqxg/exec'
+                + '?origin='
+                + encodedOrigin
+                + '&drainStatusRange='
+                + encodeddrainStatusRange
+                + '&blockTimeRange='
+                + encodedBlockTimeRange
+                + '&blockTime='
+                + encodedBlockTime;
+
+            // use fetch() to pass this data to the google web app via the uri params
+            fetch(spreadsheetUrl)
+                .then(response => response.text())
+                .then((data) => {
+                    console.log(data)
+                    // now we know the spreadsheet is updated, we can update our indicator, so that we know to start looking for a blocked drain again
+                    drainIsBlocked = false;
+                })
+                .catch(error => console.error('Error with fetch:', error))
+        };
+
+
 
     </script>
 </body>
