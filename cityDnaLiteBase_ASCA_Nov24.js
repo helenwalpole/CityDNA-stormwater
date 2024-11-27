@@ -1180,8 +1180,8 @@ map.on("load", function () {
             // CHECK DATA FROM GOOGLE SHEET //
 
             //  Once per second, check the spreadsheet for any drains cleared by players, then reset the spreadsheet
-            if (countGameIntervals % ((animationRate / gameLength) * 2) == 0) { // eg, every 2 seconds
-                // fetch(spreadsheetUrlTable)
+            // if (countGameIntervals % ((animationRate / gameLength) * 2) == 0) { // eg, every 2 seconds
+            //     // fetch(spreadsheetUrlTable)
                 //     .then((response) => {
                 //         response = response.text();
                 //         // responseText = responseText.toString();
@@ -1235,12 +1235,13 @@ map.on("load", function () {
                         for (index in data.values) {
                             if (data.values[index][1] == 'userCleared') {
                                 clearDrain(swDrainLive[index].drainID);
+                                console.log("clearDrain(drainID)")
                             }
                         }
                     })
                     .catch(error => console.error('Error:', error));
 
-            }
+            // }
 
 
             // Update legend to show day/time for this interval
