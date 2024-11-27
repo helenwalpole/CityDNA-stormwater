@@ -420,8 +420,7 @@ map.on("load", function () {
     statesList.push(loadTreeCanopyState);
     stateNamesList.push("loadTreeCanopyState");
 
-    // STORMWATER DRAIN NETWORK - CLUE BLOCKS AS PROXY
-    // 1 - CLUE BLOCKS
+    // 4 STORMWATER DRAIN NETWORK 
     function loadStormwaterDrainsStory() {
         layersList = ["Show stormwater drains"];
         map.addLayer({
@@ -445,7 +444,18 @@ map.on("load", function () {
 
     // 5 - STORMWATER SENSOR LOCATIONS
     function loadStormwaterLocationStory() {
-        layersList = ["Show stormwater sensor locations", "Show stormwater sensor location rings"];
+        layersList = ["Show stormwater drains network", "Show stormwater sensor locations", "Show stormwater sensor location rings"];
+        map.addLayer({
+            id: "Show stormwater drains network",
+            source: "stormwater drains",
+            "source-layer": "CDX_stormwaterDrains-bm7w6h",
+            type: "line",
+            paint: {
+                "line-color": "#9cdef0",
+                "line-width": 1.5,
+                "line-opacity": 0.9,
+            },
+        });
         map.addLayer({
             id: "Show stormwater sensor locations",
             source: "stormwater sensors",
