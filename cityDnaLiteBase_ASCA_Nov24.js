@@ -453,7 +453,7 @@ map.on("load", function () {
             paint: {
                 "line-color": "#9cdef0",
                 "line-width": 1.5,
-                "line-opacity": 0.9,
+                "line-opacity": 0.6,
             },
         });
         map.addLayer({
