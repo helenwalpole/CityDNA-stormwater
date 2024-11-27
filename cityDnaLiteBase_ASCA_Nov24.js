@@ -785,11 +785,13 @@ map.on("load", function () {
             11.00, 11.1, 11.2, 11.3, 11.4, 11.50, 11.6, 11.7, 11.58, 11.9,
             12.00, 12.1, 12.2, 12.3, 12.4, 12.5, 12.6, 12.7, 12.8, 12.9,
             13.00, 13.1, 13.2, 13.3, 13.4, 13.5, 13.6, 13.7, 13.8, 13.9,
-            14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
-            14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
-            14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
-            14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
-            14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
+            14, 14, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1,
+            1.21, 1.23, 1.26, 1.31, 1.38, 1.46, 1.55, 1.65, 1.75, 1.87,
+            1.99, 2.11, 2.24, 2.36, 2.48, 2.60, 2.71, 2.82, 2.91, 2.99,
+            3.06, 3.12, 3.16, 3.19, 3.20,
+            3.19, 3.17, 3.13, 3.08, 3.01, 2.93, 2.84, 2.74, 2.63, 2.52,
+            2.39, 2.27, 2.15, 2.02, 1.90, 1.78, 1.67, 1.57, 1.48, 1.40,
+            1.33, 1.28, 1.24, 1.21, 1.20,
         ];
 
 
@@ -806,15 +808,15 @@ map.on("load", function () {
             // southbankWaterLevelDemo[globalStormwaterStep] = southbankWaterLevelDemo[globalStormwaterStep] + 0.6;
 
             if (countGameIntervals == 100) {
-                map.setPaintProperty("Show southbank sensor location", "circle-color", "#edea3b");
+                map.setPaintProperty("Show southbank sensor location", "circle-color", "#edea3b"); //yellow
                 map.setLayoutProperty("Show southbank alert icon", 'visibility', 'visible');
             };
-            if (countGameIntervals == 150) {
-                map.setPaintProperty("Show southbank sensor location", "circle-color", "#eb962f");
+            if (countGameIntervals == 140) {
+                map.setPaintProperty("Show southbank sensor location", "circle-color", "#eb962f"); //orange
             };
-            if (countGameIntervals == 190) {
-                map.setPaintProperty("Show southbank sensor location", "circle-color", "#eb2f2f");
-                map.setLayoutProperty("Show southbank alert icon", 'icon-image', 'brokenIcon');
+            if (countGameIntervals == 170) {
+                map.setPaintProperty("Show southbank sensor location", "circle-color", "#9cdef0"); //blue
+                map.setLayoutProperty("Show southbank alert icon", 'visibility', 'none');
             };
 
             if (countGameIntervals == maxGameLength) {
