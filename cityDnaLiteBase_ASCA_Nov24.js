@@ -839,7 +839,7 @@ map.on("load", function () {
 
     // Variables controlling game timing
     const animationRate = 150; // ADJUST THIS to set the length of an 'interval', in milliseconds. 200 is good.
-    const gameLength = 30; // ADJUST THIS to set the length of overall gameplay, in seconds
+    const gameLength = 90; // ADJUST THIS to set the length of overall gameplay, in seconds
     const gameTotalIntervals = (gameLength / animationRate) * 1000; // number of intervals in game
     let globalStep = -1; // Start at -1 so that first increment is 0
 
@@ -1252,38 +1252,30 @@ map.on("load", function () {
             // Are any drains due to block this interval?
             // Manually set the blockage schedule
 
-            if ((countGameIntervals - 50) % 65 === 0) {
-                //every 35 sec
-                blockDrain("SW1");
-            };
-            if ((countGameIntervals - 30) % 86 === 0) {
-                //every 35 sec
-                blockDrain("SW7");
-            };
-            if ((countGameIntervals - 15) % 77 === 0) {
-                //every 35 sec
-                blockDrain("SW2");
-            };
-            if ((countGameIntervals + 1) % 108 === 0) {
-                //every 35 sec
-                blockDrain("SW4");
-            };
-            if ((countGameIntervals + 1) % 59 === 0) {
-                //every 35 sec
-                blockDrain("SW5");
-            };
-            if ((countGameIntervals + 1) % 70 === 0) {
-                //every 35 sec
-                blockDrain("SW6");
-            };
-            if ((countGameIntervals + 1) % 81 === 0) {
-                //every 35 sec
-                blockDrain("SW3");
-            };
-            if ((countGameIntervals + 1) % 92 === 0) {
-                //every 35 sec
-                blockDrain("SW8");
-            };
+            if (countGameIntervals == 40) {blockDrain("SW2")};
+            if (countGameIntervals == 70) {blockDrain("SW7")};
+            if (countGameIntervals == 80) {blockDrain("SW4")};
+            if (countGameIntervals == 120) {blockDrain("SW6")};
+            if (countGameIntervals == 140) {blockDrain("SW8")};
+            if (countGameIntervals == 150) {blockDrain("SW1")};
+            if (countGameIntervals == 170) {blockDrain("SW3")};
+            if (countGameIntervals == 190) {blockDrain("SW5")};
+            if (countGameIntervals == 220) {blockDrain("SW7")};
+            if (countGameIntervals == 230) {blockDrain("SW2")};
+            if (countGameIntervals == 260) {blockDrain("SW4")};
+            if (countGameIntervals == 280) {blockDrain("SW6")};
+            if (countGameIntervals == 290) {blockDrain("SW8")};
+            if (countGameIntervals == 300) {blockDrain("SW1")};
+            if (countGameIntervals == 335) {blockDrain("SW3")};
+            if (countGameIntervals == 350) {blockDrain("SW5")};
+            if (countGameIntervals == 370) {blockDrain("SW2")};
+            if (countGameIntervals == 380) {blockDrain("SW4")};
+            if (countGameIntervals == 400) {blockDrain("SW6")};
+            if (countGameIntervals == 410) {blockDrain("SW8")};
+            if (countGameIntervals == 430) {blockDrain("SW1")};
+            if (countGameIntervals == 440) {blockDrain("SW3")};
+            if (countGameIntervals == 460) {blockDrain("SW5")};
+            if (countGameIntervals == 470) {blockDrain("SW7")};
 
 
             // PREPARE THE LIVE DATA
