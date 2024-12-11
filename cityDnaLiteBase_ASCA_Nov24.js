@@ -1040,6 +1040,31 @@ map.on("load", function () {
         // We need a layersList array so that Presentation Mode can turn all the layers off at the end of the game.
         layersList = layersSubListCircles.concat(layersSubListSymbols).concat(layersSubListIcons);
 
+        // Add a layer with labels for the drains
+        map.addLayer({
+            id: 'Show game drain id numbers',
+            source: "stormwater game",
+            "source-layer": "CDX_CityDNA_game_stormwaterSenso",
+            type: "symbol",
+            paint: {
+                'text-color': '#000000',
+            },
+            layout: {
+                "text-field": [
+                    'format',
+                    ['upcase', ['slice', ['get', 'name'], 2]],
+                    { 'font-scale': 1.8 }
+                ],
+                'text-font': ['Open Sans Bold', 'Arial Unicode MS Bold'],
+
+                // "icon-offset": qrOffsetList[index], //right, down
+                // This layer is not visible initially.
+                // It will be updated to 'visible' by blockedDrain()
+                // 'visibility': 'none',
+                'visibility': 'visible',
+            },
+        });
+        
         // Add 8 new CIRCLE layers, one for each drain.
         // Note that this adds a new drains at every location, but renders each drain only once (one per layer).
         // We will use this layer to place a red circle over a broken drain.
