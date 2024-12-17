@@ -1217,7 +1217,7 @@ map.on("load", function () {
             if (clockDisplayReadout == "Midnight") {
                 dayIncrement += 1;
             };
-            document.getElementById("legend").innerHTML = `<br> Stormwater drain sensors<br><br> ${18 + clockDisplayReadout} December 2030 ${clockDisplayReadout}`;
+            document.getElementById("legend").innerHTML = `<br> Stormwater drain sensors<br><br> ${18 + dayIncrement} December 2030 ${clockDisplayReadout}`;
 
             // Are any drains due to block this interval?
             // Manually set the blockage schedule
