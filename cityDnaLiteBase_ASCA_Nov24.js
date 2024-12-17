@@ -1273,8 +1273,12 @@ map.on("load", function () {
             // TO DO: create game countdown timer
             // TO DO, LOW PRIORITY: also calculate day / date etc from globalStep
             let clockDisplayReadout = clockDisplay[globalStep % clockDisplay.length];
-            document.getElementById("legend").innerHTML = `<br> Stormwater drain sensors<br><br> 27 November 2030 ${clockDisplayReadout}`;
-
+            let dayIncrement = 0; 
+            if (clockDisplayReadout == "Midnight") {
+                dayIncrement += 1;
+            };
+            document.getElementById("legend").innerHTML = `<br> Stormwater drain sensors<br><br> ${18 + dayIncrement} December 2030 ${clockDisplayReadout}`;
+            
             // Are any drains due to block this interval?
             // Manually set the blockage schedule
 
